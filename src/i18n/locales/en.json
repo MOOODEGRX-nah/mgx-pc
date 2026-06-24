@@ -1,0 +1,83 @@
+{
+  "nav": { "siteName": "MGX(PC)", "admin": "Owner login" },
+  "home": {
+    "welcomeTo": "Your build starts here",
+    "tagline": "Pick a tier, grab any part in a second — store link or part name, ready to copy.",
+    "noBuilds": "No builds in this category yet",
+    "viewBuild": "View details"
+  },
+  "categories": {
+    "high-end": "High-End PC",
+    "mid-range": "Mid-Range PC",
+    "budget": "Budget PC",
+    "console-equiv": "Console Rival"
+  },
+  "build": {
+    "back": "Back to home",
+    "specs": "Specs",
+    "partsCount": "Parts",
+    "tools": "Additional tools",
+    "copyLink": "Copy link",
+    "copyName": "Copy name",
+    "copied": "Copied",
+    "openStore": "Open in store",
+    "noLink": "No store link",
+    "notFound": "Build not found",
+    "partImage": "Part image",
+    "consoleSection": "Console Comparison",
+    "consoleTarget": "Target Console",
+    "priceVsConsole": "Price vs Console",
+    "perfVsConsole": "Performance vs Console"
+  },
+  "consoleTarget": {
+    "ps5": "PlayStation 5",
+    "xbox-series-x": "Xbox Series X",
+    "xbox-series-s": "Xbox Series S",
+    "nintendo-switch": "Nintendo Switch"
+  },
+  "priceVsConsole": {
+    "cheaper": "Cheaper",
+    "similar": "Similar price",
+    "more-expensive": "More expensive"
+  },
+  "perfVsConsole": {
+    "stronger": "Stronger",
+    "similar": "Similar performance",
+    "weaker": "Weaker"
+  },
+  "partTypes": {
+    "case": "Case", "motherboard": "Motherboard", "cpu": "CPU",
+    "cpu_cooler": "CPU Cooler", "gpu": "GPU", "ram": "RAM",
+    "ssd_nvme": "SSD NVME", "ssd_sata": "SSD SATA",
+    "hdd_2_5": "HDD 2.5\"", "hdd_3_5": "HDD 3.5\""
+  },
+  "admin": {
+    "loginTitle": "Sign in to dashboard", "email": "Email",
+    "password": "Password", "login": "Sign in",
+    "loginError": "Invalid credentials", "logout": "Sign out",
+    "dashboard": "Dashboard", "tabBuilds": "Builds", "tabStores": "Stores",
+    "addBuild": "Add build", "editBuild": "Edit build",
+    "nameAr": "Name (Arabic)", "nameEn": "Name (English)",
+    "category": "Category", "descriptionAr": "Description (Arabic)", "descriptionEn": "Description (English)",
+    "image": "Build image", "save": "Save", "cancel": "Cancel",
+    "delete": "Delete", "edit": "Edit",
+    "confirmDelete": "Are you sure you want to delete this item?",
+    "parts": "Parts", "addPart": "Add part", "partType": "Part type",
+    "partName": "Part name", "partImage": "Part image",
+    "store": "Store", "storeLink": "Store link", "noStore": "No store",
+    "addTool": "Add tool", "toolName": "Tool name",
+    "addStore": "Add store", "storeName": "Store name", "storeLogo": "Store logo",
+    "uploading": "Uploading...", "saving": "Saving...",
+    "selectBuildFirst": "Save the build first before adding parts",
+    "saveCompositeAsMain": "Save as build's main image",
+    "consoleTarget": "Target Console",
+    "priceVsConsole": "Price vs Console",
+    "perfVsConsole": "Performance vs Console",
+    "imageEditor": "Image Editor",
+    "addToCanvas": "Click a part to add it to the canvas",
+    "noPartImages": "Add part images first"
+  },
+  "common": {
+    "loading": "Loading...", "error": "Something went wrong", "language": "AR"
+  }
+}

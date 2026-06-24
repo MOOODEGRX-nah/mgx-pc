@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Tajawal", "Segoe UI", sans-serif;
+  --font-body: "Tajawal", "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-bg: #0a0a0c;
+  --color-surface: #111114;
+  --color-surface-2: #18181d;
+  --color-surface-3: #202028;
+  --color-line: #252530;
+
+  --color-red: #e10600;
+  --color-red-dim: #5c1414;
+  --color-red-glow: #ff2b1f;
+
+  --color-ink: #f0f0ee;
+  --color-ink-muted: #8a8a94;
+  --color-ink-faint: #50505a;
+}
+
+html {
+  background-color: var(--color-bg);
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-red);
+  color: white;
+}
+
+/* Red trace divider */
+.trace-divider {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-line) 15%,
+    var(--color-line) 85%,
+    transparent
+  );
+}
+.trace-divider::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin-inline: auto;
+  width: 48px;
+  height: 1px;
+  background: var(--color-red);
+  box-shadow: 0 0 10px 1px var(--color-red-glow);
+}
+
+/* Power-switch category toggle */
+.power-toggle {
+  position: relative;
+  isolation: isolate;
+}
+.power-toggle::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0.875rem;
+  top: 50%;
+  translate: 0 -50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-ink-faint);
+  transition: background-color 150ms ease, box-shadow 150ms ease;
+}
+.power-toggle[data-active="true"]::before {
+  background: var(--color-red);
+  box-shadow: 0 0 8px 2px var(--color-red-glow);
+}
+
+/* Smooth image loading */
+img {
+  transition: opacity 0.3s ease;
+}
+img[src=""] {
+  opacity: 0;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-red-dim);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

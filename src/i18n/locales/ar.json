@@ -1,0 +1,83 @@
+{
+  "nav": { "siteName": "MGX(PC)", "admin": "دخول الأونر" },
+  "home": {
+    "welcomeTo": "بنّاء جهازك يبدأ من هنا",
+    "tagline": "اختر فئتك، وخذ كل قطعة بثانية — رابط المتجر أو اسم القطعة، جاهز للنسخ.",
+    "noBuilds": "لا توجد أجهزة في هذه الفئة بعد",
+    "viewBuild": "عرض التفاصيل"
+  },
+  "categories": {
+    "high-end": "High-End PC",
+    "mid-range": "Mid-Range PC",
+    "budget": "Budget PC",
+    "console-equiv": "بديل الكونسول"
+  },
+  "build": {
+    "back": "رجوع للرئيسية",
+    "specs": "المواصفات",
+    "partsCount": "عدد القطع",
+    "tools": "أدوات إضافية",
+    "copyLink": "نسخ الرابط",
+    "copyName": "نسخ الاسم",
+    "copied": "تم النسخ",
+    "openStore": "فتح في المتجر",
+    "noLink": "لا يوجد رابط متجر",
+    "notFound": "الجهاز غير موجود",
+    "partImage": "صورة القطعة",
+    "consoleSection": "مقارنة بالكونسول",
+    "consoleTarget": "الكونسول المستهدف",
+    "priceVsConsole": "السعر مقارنةً به",
+    "perfVsConsole": "الأداء مقارنةً به"
+  },
+  "consoleTarget": {
+    "ps5": "PlayStation 5",
+    "xbox-series-x": "Xbox Series X",
+    "xbox-series-s": "Xbox Series S",
+    "nintendo-switch": "Nintendo Switch"
+  },
+  "priceVsConsole": {
+    "cheaper": "أرخص منه",
+    "similar": "متقارب معه",
+    "more-expensive": "أغلى منه"
+  },
+  "perfVsConsole": {
+    "stronger": "أقوى منه",
+    "similar": "متقارب معه",
+    "weaker": "أضعف منه"
+  },
+  "partTypes": {
+    "case": "الكيس", "motherboard": "اللوحة الأم", "cpu": "المعالج",
+    "cpu_cooler": "مبرد المعالج", "gpu": "كرت الشاشة", "ram": "الرام",
+    "ssd_nvme": "SSD NVME", "ssd_sata": "SSD SATA",
+    "hdd_2_5": "HDD 2.5\"", "hdd_3_5": "HDD 3.5\""
+  },
+  "admin": {
+    "loginTitle": "دخول لوحة التحكم", "email": "البريد الإلكتروني",
+    "password": "كلمة المرور", "login": "تسجيل الدخول",
+    "loginError": "بيانات الدخول غير صحيحة", "logout": "تسجيل الخروج",
+    "dashboard": "لوحة التحكم", "tabBuilds": "الأجهزة", "tabStores": "المتاجر",
+    "addBuild": "إضافة جهاز", "editBuild": "تعديل الجهاز",
+    "nameAr": "الاسم (عربي)", "nameEn": "الاسم (إنجليزي)",
+    "category": "الفئة", "descriptionAr": "الوصف (عربي)", "descriptionEn": "الوصف (إنجليزي)",
+    "image": "صورة الجهاز", "save": "حفظ", "cancel": "إلغاء",
+    "delete": "حذف", "edit": "تعديل",
+    "confirmDelete": "متأكد إنك تبي تحذف هذا العنصر؟",
+    "parts": "القطع", "addPart": "إضافة قطعة", "partType": "نوع القطعة",
+    "partName": "اسم القطعة", "partImage": "صورة القطعة",
+    "store": "المتجر", "storeLink": "رابط المتجر", "noStore": "بدون متجر",
+    "addTool": "إضافة أداة", "toolName": "اسم الأداة",
+    "addStore": "إضافة متجر", "storeName": "اسم المتجر", "storeLogo": "شعار المتجر",
+    "uploading": "جارٍ الرفع...", "saving": "جارٍ الحفظ...",
+    "selectBuildFirst": "احفظ بيانات الجهاز أولًا قبل إضافة القطع",
+    "saveCompositeAsMain": "حفظ كصورة رئيسية للجهاز",
+    "consoleTarget": "الكونسول المستهدف",
+    "priceVsConsole": "السعر مقارنةً بالكونسول",
+    "perfVsConsole": "الأداء مقارنةً بالكونسول",
+    "imageEditor": "محرر الصورة",
+    "addToCanvas": "اضغط على قطعة لإضافتها",
+    "noPartImages": "أضف صور للقطع أولاً"
+  },
+  "common": {
+    "loading": "جارٍ التحميل...", "error": "حدث خطأ، حاول مرة أخرى", "language": "EN"
+  }
+}
