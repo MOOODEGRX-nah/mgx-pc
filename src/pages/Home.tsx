@@ -24,8 +24,9 @@ export function Home() {
   return (
     <div>
       {/* ── HERO ─────────────────────────────────────────────────── */}
-      <section className="relative">
-        {/* Ambient glow — stays within section, no overflow-hidden */}
+      <section className="relative overflow-x-clip">
+        {/* Ambient glow. overflow-x-clip stops it widening the page on phones
+            without clipping the glow vertically (unlike overflow-hidden). */}
         <div
           aria-hidden
           className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[320px] w-[640px] rounded-full bg-[var(--color-red)] opacity-[0.05] blur-[100px]"
