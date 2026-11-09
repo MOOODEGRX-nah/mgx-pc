@@ -58,7 +58,9 @@
     "ssd_nvme": "SSD NVME",
     "ssd_sata": "SSD SATA",
     "hdd_2_5": "HDD 2.5\"",
-    "hdd_3_5": "HDD 3.5\""
+    "hdd_3_5": "HDD 3.5\"",
+    "psu": "مزود الطاقة (باور)",
+    "accessory": "إكسسوار"
   },
   "admin": {
     "loginTitle": "دخول لوحة التحكم",
@@ -106,6 +108,74 @@
     "imageEditor": "محرر الصورة",
     "addToCanvas": "اضغط على قطعة لإضافتها",
     "noPartImages": "أضف صور للقطع أولاً"
+  },
+  "compat": {
+    "socket_mismatch": "سوكت المعالج ({{cpu}}) لا يطابق سوكت اللوحة الأم ({{board}}).",
+    "ram_type_mismatch": "{{name}} من نوع {{ram}}، واللوحة الأم تدعم {{board}}.",
+    "case_form_factor": "الكيس لا يناسب لوحة أم بمقاس {{board}} (يدعم: {{supported}}).",
+    "gpu_too_long": "طول كرت الشاشة {{length}} مم، والكيس يتسع حتى {{max}} مم.",
+    "cooler_too_tall": "ارتفاع المبرد {{height}} مم، والكيس يتسع حتى {{max}} مم.",
+    "cooler_socket": "المبرد لا يدعم سوكت {{socket}} (يدعم: {{supported}}).",
+    "psu_underpowered": "مزود الطاقة {{wattage}} واط أقل من الموصى به {{recommended}} واط.",
+    "no_gpu_no_igpu": "ما اخترت كرت شاشة، وهذا المعالج ما فيه رسوميات مدمجة.",
+    "no_cooler": "ما اخترت مبرد معالج، وهذا المعالج ما يجي معه مبرد.",
+    "no_storage": "ما اخترت وحدة تخزين."
+  },
+  "errors": {
+    "generic": "حدث خطأ، حاول مرة أخرى.",
+    "rate_limited": "إرسالات كثيرة. حاول مرة ثانية بعد ساعة.",
+    "invalid_items": "التجميعة غير صالحة. أضف قطعتين مختلفتين على الأقل.",
+    "unknown_component": "بعض القطع لم تعد متوفرة. راجع تجميعتك.",
+    "invalid_answers": "تعذّر حفظ إجابات المستشار.",
+    "component_in_use": "هذه القطعة مستخدمة في {{count}} جهاز. احذفها من تلك الأجهزة أو عطّلها بدل الحذف.",
+    "duplicate_component": "توجد قطعة من نفس النوع بنفس الاسم.",
+    "duplicate_offer_url": "هذه القطعة لها عرض بنفس الرابط مسبقًا.",
+    "invalid_url": "أدخل رابطًا كاملًا يبدأ بـ http:// أو https://.",
+    "not_allowed": "ليس لديك صلاحية لهذا الإجراء."
+  },
+  "specs": {
+    "socket": "السوكت",
+    "cores": "الأنوية",
+    "threads": "المسارات",
+    "tdp_w": "استهلاك الطاقة (TDP)",
+    "integrated_gpu": "رسوميات مدمجة",
+    "includes_cooler": "يأتي مع مبرد",
+    "ram_type": "نوع الرام",
+    "form_factor": "المقاس",
+    "m2_slots": "منافذ M.2",
+    "vram_gb": "ذاكرة الكرت",
+    "length_mm": "الطول",
+    "capacity_gb": "السعة",
+    "speed_mhz": "السرعة",
+    "modules": "عدد الشرائح",
+    "cooler_kind": "نوع المبرد",
+    "sockets": "السوكتات المدعومة",
+    "height_mm": "الارتفاع",
+    "radiator_mm": "مقاس الرادياتير",
+    "wattage": "القدرة (واط)",
+    "efficiency": "شهادة الكفاءة",
+    "modular": "موديولار",
+    "form_factors": "اللوحات المدعومة",
+    "max_gpu_length_mm": "أقصى طول لكرت الشاشة",
+    "max_cooler_height_mm": "أقصى ارتفاع للمبرد",
+    "category": "التصنيف",
+    "resolution": "الدقة",
+    "refresh_hz": "معدل التحديث"
+  },
+  "specOptions": {
+    "cooler_kind": {
+      "air": "هوائي",
+      "aio": "مائي (AIO)"
+    },
+    "category": {
+      "keyboard": "كيبورد",
+      "mouse": "ماوس",
+      "headset": "سماعة",
+      "monitor": "شاشة",
+      "desk": "مكتب",
+      "chair": "كرسي",
+      "other": "أخرى"
+    }
   },
   "common": {
     "loading": "جارٍ التحميل...",
