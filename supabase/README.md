@@ -45,6 +45,11 @@ delete that row first.
 - `specs` and `perf_tier` start empty; fill them in the admin for compatibility checks
   and the advisor.
 
+## Testing changes to these files
+
+Run `bash supabase/tests/run.sh` against a local Postgres before running a changed file on the real
+project. See [`tests/README.md`](tests/README.md).
+
 ## Managing admins
 
 ```sql
