@@ -28,7 +28,7 @@ export function AdminLogin() {
   }
 
   return (
-    <div className="mx-auto flex max-w-sm flex-col px-4 py-20 sm:px-6">
+    <div className="mx-auto flex max-w-sm animate-fade-up flex-col px-4 py-20 sm:px-6">
       <h1 className="mb-6 text-center font-[var(--font-display)] text-2xl font-black text-[var(--color-ink)]">
         {t("admin.loginTitle")}
       </h1>

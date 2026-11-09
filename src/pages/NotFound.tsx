@@ -6,8 +6,8 @@ export function NotFound() {
   const { t } = useTranslation();
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 px-4 text-center">
-      <Cpu size={56} className="text-[var(--color-red)] drop-shadow-[0_0_16px_rgba(225,6,0,0.4)]" />
-      <p className="font-mono text-6xl font-black text-[var(--color-red)]">404</p>
+      <Cpu size={56} className="animate-scale-in text-[var(--color-red)] drop-shadow-[0_0_16px_rgba(225,6,0,0.4)]" />
+      <p className="animate-fade-up font-mono text-6xl font-black text-[var(--color-red)] [animation-delay:80ms]">404</p>
       <p className="text-sm text-[var(--color-ink-muted)]">{t("common.pageNotFound")}</p>
       <Link
         to="/"

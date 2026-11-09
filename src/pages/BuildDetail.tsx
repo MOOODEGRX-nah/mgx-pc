@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, ArrowRight, Cpu } from "lucide-react";
 import { fetchBuildById, fetchStores } from "../lib/api";
 import { SpecRow } from "../components/SpecRow";
+import { Reveal } from "../components/Reveal";
 import { PART_TYPES, type BuildWithRelations, type Store } from "../types";
 
 const CATEGORY_COLOR: Record<string, string> = {
@@ -52,14 +53,14 @@ export function BuildDetail() {
   if (build === undefined) {
     return (
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6">
-        <div className="h-4 w-20 animate-pulse rounded bg-[var(--color-surface-2)] mb-8" />
+        <div className="h-4 w-20 shimmer rounded mb-8" />
         <div className="flex flex-col gap-8 md:flex-row">
           <div className="flex-1 space-y-3">
-            <div className="h-3 w-24 animate-pulse rounded bg-[var(--color-surface-2)]" />
-            <div className="h-10 w-3/4 animate-pulse rounded bg-[var(--color-surface-2)]" />
-            <div className="h-4 w-full animate-pulse rounded bg-[var(--color-surface-2)]" />
+            <div className="h-3 w-24 shimmer rounded" />
+            <div className="h-10 w-3/4 shimmer rounded" />
+            <div className="h-4 w-full shimmer rounded" />
           </div>
-          <div className="aspect-[4/3] flex-1 animate-pulse rounded-xl bg-[var(--color-surface-2)]" />
+          <div className="aspect-[4/3] flex-1 shimmer rounded-xl" />
         </div>
       </div>
     );
@@ -84,8 +85,8 @@ export function BuildDetail() {
   return (
     <div className="mx-auto max-w-5xl px-4 pb-24 sm:px-6">
       {/* Back */}
-      <Link to="/" className="mt-6 inline-flex items-center gap-1.5 text-sm text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-red)]">
-        <BackIcon size={14} />
+      <Link to="/" className="group mt-6 inline-flex items-center gap-1.5 text-sm text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-red)]">
+        <BackIcon size={14} className="transition-transform duration-300 ltr:group-hover:-translate-x-1 rtl:group-hover:translate-x-1" />
         {t("build.back")}
       </Link>
 
@@ -95,8 +96,8 @@ export function BuildDetail() {
           In LTR (English): text left, image right.  */}
       <div className="mt-6 flex flex-col gap-6 md:flex-row md:items-stretch md:gap-8">
         {/* Text — md:order follows RTL rule */}
-        <div className={`flex flex-1 flex-col justify-center ${isRtl ? "md:order-2" : "md:order-1"}`}>
-          <span className={`font-mono text-xs font-bold uppercase tracking-widest ${catColor}`}>
+        <div className={`flex flex-1 animate-fade-up flex-col justify-center ${isRtl ? "md:order-2" : "md:order-1"}`}>
+          <span className={`font-mono text-xs font-bold uppercase tracking-widest rtl:tracking-normal ${catColor}`}>
             {t(`categories.${build.category}`)}
           </span>
           <h1 className="mt-2 font-[var(--font-display)] text-3xl font-black leading-tight text-[var(--color-ink)] sm:text-4xl">
@@ -108,14 +109,14 @@ export function BuildDetail() {
 
           {/* Stats row: parts count + tools count */}
           <div className="mt-6 flex flex-wrap gap-3">
-            <div className="rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] px-4 py-2.5">
+            <div className="stagger animate-scale-in rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] px-4 py-2.5" style={{ "--i": 3 } as CSSProperties}>
               <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-ink-faint)]">
                 {t("build.partsCount")}
               </p>
               <p className="mt-0.5 text-xl font-black text-[var(--color-ink)]">{build.parts.length}</p>
             </div>
             {build.tools.length > 0 && (
-              <div className="rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] px-4 py-2.5">
+              <div className="stagger animate-scale-in rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] px-4 py-2.5" style={{ "--i": 4 } as CSSProperties}>
                 <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-ink-faint)]">
                   {t("build.tools")}
                 </p>
@@ -126,13 +127,13 @@ export function BuildDetail() {
         </div>
 
         {/* Image */}
-        <div className={`relative flex-1 overflow-hidden rounded-xl border border-[var(--color-line)] bg-[var(--color-surface-2)] ${isRtl ? "md:order-1" : "md:order-2"}`}>
+        <div className={`stagger group relative flex-1 animate-scale-in overflow-hidden rounded-xl border border-[var(--color-line)] bg-[var(--color-surface-2)] ${isRtl ? "md:order-1" : "md:order-2"}`} style={{ "--i": 2 } as CSSProperties}>
           {hasImg ? (
             <img
               src={build.image_url!}
               alt={name}
               onError={() => setImgErr(build.image_url)}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover transition-transform duration-[1200ms] ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
               style={{ minHeight: "260px", maxHeight: "400px" }}
             />
           ) : (
@@ -147,7 +148,7 @@ export function BuildDetail() {
 
       {/* Console comparison section */}
       {build.category === "console-equiv" && build.console_target && (
-        <div className="mt-8 rounded-xl border border-purple-500/20 bg-purple-400/5 p-5">
+        <Reveal className="mt-8 rounded-xl border border-purple-500/20 bg-purple-400/5 p-5">
           <h2 className="mb-4 font-[var(--font-display)] text-base font-bold text-purple-300">
             🕹️ {t("build.consoleSection")}
           </h2>
@@ -186,7 +187,7 @@ export function BuildDetail() {
               </div>
             )}
           </div>
-        </div>
+        </Reveal>
       )}
 
       <div className="trace-divider my-10" />
@@ -197,19 +198,19 @@ export function BuildDetail() {
           {t("build.specs")}
         </h2>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {PART_TYPES.map((type) => {
+          {PART_TYPES.flatMap((type) => {
             const part = build.parts.find((p) => p.type === type);
-            if (!part) return null;
-            return (
+            return part ? [{ type, part }] : [];
+          }).map(({ type, part }, index) => (
+            <Reveal key={part.id} delay={index * 60}>
               <SpecRow
-                key={part.id}
                 label={t(`partTypes.${type}`)}
                 valueName={part.part_name}
                 storeLink={part.store_link}
                 store={part.store_id ? storeMap.get(part.store_id) : null}
               />
-            );
-          })}
+            </Reveal>
+          ))}
         </div>
       </section>
 
@@ -221,13 +222,14 @@ export function BuildDetail() {
             {t("build.tools")}
           </h2>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {build.tools.map((tool) => (
-              <SpecRow
-                key={tool.id}
-                valueName={tool.tool_name}
-                storeLink={tool.store_link}
-                store={tool.store_id ? storeMap.get(tool.store_id) : null}
-              />
+            {build.tools.map((tool, index) => (
+              <Reveal key={tool.id} delay={index * 60}>
+                <SpecRow
+                  valueName={tool.tool_name}
+                  storeLink={tool.store_link}
+                  store={tool.store_id ? storeMap.get(tool.store_id) : null}
+                />
+              </Reveal>
             ))}
           </div>
         </section>

@@ -30,9 +30,10 @@ export function CategoryToggle({ value, onChange }: CategoryToggleProps) {
             key={category}
             type="button"
             onClick={() => onChange(category)}
+            aria-pressed={active}
             className={[
-              "flex items-center gap-2 rounded-xl border px-5 py-3 font-mono text-sm tracking-wide",
-              "transition-all duration-200 active:scale-95 select-none",
+              "flex items-center gap-2 rounded-xl border px-5 py-3 font-mono text-sm tracking-wide rtl:tracking-normal",
+              "transition-all duration-300 active:scale-95 select-none",
               active
                 ? meta.active
                 : "border-[var(--color-line)] bg-[var(--color-surface)] text-[var(--color-ink-muted)] hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]",
@@ -47,7 +48,7 @@ export function CategoryToggle({ value, onChange }: CategoryToggleProps) {
               ].join(" ")}
             />
             <span>{t(`categories.${category}`)}</span>
-            {active && <span className="text-base leading-none">{meta.icon}</span>}
+            {active && <span className="animate-pop text-base leading-none">{meta.icon}</span>}
           </button>
         );
       })}

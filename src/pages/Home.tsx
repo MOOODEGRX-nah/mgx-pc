@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { useTranslation } from "react-i18next";
+import { Cpu } from "lucide-react";
 import { CategoryToggle } from "../components/CategoryToggle";
 import { BuildCard } from "../components/BuildCard";
 import { fetchBuilds } from "../lib/api";
@@ -29,22 +30,39 @@ export function Home() {
             without clipping the glow vertically (unlike overflow-hidden). */}
         <div
           aria-hidden
-          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[320px] w-[640px] rounded-full bg-[var(--color-red)] opacity-[0.05] blur-[100px]"
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[320px] w-[640px] -translate-x-1/2 -translate-y-1/2 animate-breathe rounded-full bg-[var(--color-red)] opacity-[0.05] blur-[100px]"
+        />
+        {/* Faint circuit grid, fading out towards the edges */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 animate-fade-in opacity-[0.035] [background-image:linear-gradient(var(--color-ink-faint)_1px,transparent_1px),linear-gradient(90deg,var(--color-ink-faint)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:radial-gradient(ellipse_60%_55%_at_center,black_10%,transparent_75%)]"
         />
 
         <div className="relative mx-auto max-w-6xl px-4 pt-16 pb-12 text-center sm:pt-24 sm:pb-16 sm:px-6">
           {/* Badge */}
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[var(--color-red-dim)] bg-[var(--color-surface)] px-4 py-1.5">
-            <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-red)] shadow-[0_0_6px_2px_rgba(225,6,0,0.5)]" />
+          <div
+            className="stagger mb-5 inline-flex animate-fade-up items-center gap-2 rounded-full border border-[var(--color-red-dim)] bg-[var(--color-surface)] px-4 py-1.5"
+            style={{ "--i": 0 } as CSSProperties}
+          >
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inset-0 animate-ping-soft rounded-full bg-[var(--color-red)]" />
+              <span className="relative h-1.5 w-1.5 rounded-full bg-[var(--color-red)] shadow-[0_0_6px_2px_rgba(225,6,0,0.5)]" />
+            </span>
             <span className="font-mono text-[11px] uppercase tracking-widest text-[var(--color-red)]">
               MGX(PC) — Saudi PC Market
             </span>
           </div>
 
-          <h1 className="font-[var(--font-display)] text-4xl font-black leading-[1.1] text-[var(--color-ink)] sm:text-6xl lg:text-7xl">
+          <h1
+            className="stagger animate-fade-up font-[var(--font-display)] text-4xl font-black leading-[1.1] text-[var(--color-ink)] sm:text-6xl lg:text-7xl"
+            style={{ "--i": 1 } as CSSProperties}
+          >
             {t("home.welcomeTo")}
           </h1>
-          <p className="mx-auto mt-5 max-w-lg text-base text-[var(--color-ink-muted)] sm:text-lg leading-relaxed">
+          <p
+            className="stagger mx-auto mt-5 max-w-lg animate-fade-up text-base leading-relaxed text-[var(--color-ink-muted)] sm:text-lg"
+            style={{ "--i": 2 } as CSSProperties}
+          >
             {t("home.tagline")}
           </p>
         </div>
@@ -55,30 +73,35 @@ export function Home() {
 
       {/* ── BUILDS ───────────────────────────────────────────────── */}
       <section className="mx-auto max-w-6xl px-4 py-12 pb-24 sm:px-6">
-        <CategoryToggle value={category} onChange={setCategory} />
+        <div className="stagger animate-fade-up" style={{ "--i": 3 } as CSSProperties}>
+          <CategoryToggle value={category} onChange={setCategory} />
+        </div>
 
         <div className="mt-10">
           {loading ? (
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="overflow-hidden rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)]">
-                  <div className="aspect-[16/10] animate-pulse bg-[var(--color-surface-2)]" />
-                  <div className="p-4 space-y-2">
-                    <div className="h-4 w-2/3 animate-pulse rounded bg-[var(--color-surface-3)]" />
-                    <div className="h-3 w-full animate-pulse rounded bg-[var(--color-surface-3)]" />
-                    <div className="h-3 w-1/3 animate-pulse rounded bg-[var(--color-surface-3)]" />
+                  <div className="shimmer aspect-[16/10]" />
+                  <div className="space-y-2 p-4">
+                    <div className="shimmer h-4 w-2/3 rounded" />
+                    <div className="shimmer h-3 w-full rounded" />
+                    <div className="shimmer h-3 w-1/3 rounded" />
                   </div>
                 </div>
               ))}
             </div>
           ) : builds.length === 0 ? (
-            <div className="py-24 text-center">
+            <div className="animate-fade-in py-24 text-center">
+              <Cpu size={36} className="mx-auto mb-3 text-[var(--color-ink-faint)] opacity-60" />
               <p className="text-sm text-[var(--color-ink-faint)]">{t("home.noBuilds")}</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {builds.map((build) => (
-                <BuildCard key={build.id} build={build} />
+            <div key={category} className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {builds.map((build, index) => (
+                <div key={build.id} className="stagger animate-fade-up" style={{ "--i": index } as CSSProperties}>
+                  <BuildCard build={build} />
+                </div>
               ))}
             </div>
           )}

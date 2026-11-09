@@ -18,6 +18,42 @@
   --color-ink: #f0f0ee;
   --color-ink-muted: #8a8a94;
   --color-ink-faint: #50505a;
+
+  /* Motion. Use with .stagger (sets a per-item delay from --i). */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-fade-up: fade-up 0.7s var(--ease-out-expo) both;
+  --animate-fade-in: fade-in 0.5s ease-out both;
+  --animate-scale-in: scale-in 0.6s var(--ease-out-expo) both;
+  --animate-pop: pop 0.35s var(--ease-out-expo) both;
+  --animate-breathe: breathe 6s ease-in-out infinite;
+  --animate-ping-soft: ping-soft 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes pop {
+    0% { transform: scale(0.6); opacity: 0; }
+    60% { transform: scale(1.15); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+  @keyframes breathe {
+    /* only scale: Tailwind's translate-* utilities use the separate `translate` property */
+    0%, 100% { opacity: 0.05; transform: scale(1); }
+    50% { opacity: 0.09; transform: scale(1.12); }
+  }
+  @keyframes ping-soft {
+    0% { transform: scale(1); opacity: 0.7; }
+    80%, 100% { transform: scale(2.6); opacity: 0; }
+  }
 }
 
 html {
@@ -35,6 +71,79 @@ body {
 ::selection {
   background-color: var(--color-red);
   color: white;
+}
+
+/* Per-item animation delay: style={{ "--i": index }} */
+.stagger {
+  animation-delay: calc(var(--i, 0) * 70ms + var(--stagger-base, 0ms));
+}
+
+/* Scroll reveal (see src/components/Reveal.tsx). Hidden only while JS marks it pending. */
+[data-reveal="pending"] {
+  opacity: 0;
+}
+[data-reveal="shown"] {
+  animation: var(--animate-fade-up);
+}
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 2px solid var(--color-red);
+  outline-offset: 2px;
+}
+
+/* Card spotlight: a soft red light that follows the pointer (--mx/--my set in JS) */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    320px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(225, 6, 0, 0.12),
+    transparent 60%
+  );
+}
+.spotlight:hover::after {
+  opacity: 1;
+}
+
+/* Skeleton shimmer */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-2) 0%,
+    var(--color-surface-3) 50%,
+    var(--color-surface-2) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+/* Smooth accordion: wrap content in .collapse > div */
+.collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s var(--ease-out-expo);
+}
+.collapse[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+.collapse > * {
+  overflow: hidden;
+  min-height: 0;
 }
 
 /* Red trace divider */
@@ -58,6 +167,12 @@ body {
   height: 1px;
   background: var(--color-red);
   box-shadow: 0 0 10px 1px var(--color-red-glow);
+  /* a signal travelling along the trace */
+  animation: trace-signal 5s ease-in-out infinite;
+}
+@keyframes trace-signal {
+  0%, 100% { translate: -28vw 0; }
+  50% { translate: 28vw 0; }
 }
 
 /* Power-switch category toggle */
@@ -107,8 +222,22 @@ img[src=""] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
     transition-duration: 0.001ms !important;
+  }
+  .trace-divider::before {
+    animation: none;
+  }
+}
+
+@media print {
+  [data-reveal] {
+    opacity: 1 !important;
+    animation: none !important;
   }
 }

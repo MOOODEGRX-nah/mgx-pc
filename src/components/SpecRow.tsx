@@ -51,13 +51,14 @@ export function SpecRow({ label, valueName, storeLink, store }: SpecRowProps) {
           </span>
           <ChevronDown
             size={15}
-            className={`shrink-0 text-[var(--color-ink-faint)] transition-transform duration-200 ${open ? "rotate-180 text-[var(--color-red)]" : ""}`}
+            className={`shrink-0 transition-[transform,color] duration-300 ${open ? "rotate-180 text-[var(--color-red)]" : "text-[var(--color-ink-faint)]"}`}
           />
         </span>
       </button>
 
-      {/* Expanded panel */}
-      {open && (
+      {/* Expanded panel (always rendered so it can animate open/closed) */}
+      <div className="collapse" data-open={open} inert={!open}>
+        <div>
         <div className="flex flex-wrap items-center gap-2 border-t border-[var(--color-line)] px-4 py-3">
           {storeLink ? (
             <a
@@ -83,7 +84,7 @@ export function SpecRow({ label, valueName, storeLink, store }: SpecRowProps) {
               className="inline-flex items-center gap-1.5 rounded-md border border-[var(--color-line)] bg-[var(--color-surface-3)] px-3 py-1.5 text-xs text-[var(--color-ink-muted)] transition-all hover:border-[var(--color-red)] hover:text-[var(--color-ink)] active:scale-95"
             >
               {copiedLink ? (
-                <Check size={12} className="text-[var(--color-red)]" />
+                <Check size={12} className="animate-pop text-[var(--color-red)]" />
               ) : (
                 <Copy size={12} />
               )}
@@ -97,14 +98,15 @@ export function SpecRow({ label, valueName, storeLink, store }: SpecRowProps) {
             className="inline-flex items-center gap-1.5 rounded-md border border-[var(--color-line)] bg-[var(--color-surface-3)] px-3 py-1.5 text-xs text-[var(--color-ink-muted)] transition-all hover:border-[var(--color-red)] hover:text-[var(--color-ink)] active:scale-95"
           >
             {copiedName ? (
-              <Check size={12} className="text-[var(--color-red)]" />
+              <Check size={12} className="animate-pop text-[var(--color-red)]" />
             ) : (
               <Copy size={12} />
             )}
             {copiedName ? t("build.copied") : t("build.copyName")}
           </button>
         </div>
-      )}
+        </div>
+      </div>
     </div>
   );
 }
