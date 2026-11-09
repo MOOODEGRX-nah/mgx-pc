@@ -111,7 +111,7 @@ export function PartsEditor({ buildId, stores, onPartsChanged }: PartsEditorProp
               </span>
 
               {/* Name */}
-              <span className="flex-1 truncate text-xs font-medium text-[var(--color-ink)]">
+              <span dir="ltr" className="flex-1 truncate text-left rtl:text-right text-xs font-medium text-[var(--color-ink)]">
                 {part.part_name}
               </span>
 
@@ -180,6 +180,7 @@ export function PartsEditor({ buildId, stores, onPartsChanged }: PartsEditorProp
         </select>
         <input
           placeholder={t("admin.partName")}
+          dir="auto"
           value={form.part_name}
           onChange={(e) => setForm((f) => ({ ...f, part_name: e.target.value }))}
           onKeyDown={(e) => e.key === "Enter" && handleAdd()}
@@ -195,6 +196,7 @@ export function PartsEditor({ buildId, stores, onPartsChanged }: PartsEditorProp
         </select>
         <input
           placeholder={t("admin.storeLink")}
+          dir="ltr"
           value={form.store_link}
           onChange={(e) => setForm((f) => ({ ...f, store_link: e.target.value }))}
           className="min-w-[140px] flex-1 rounded-lg border border-[var(--color-line)] bg-[var(--color-surface-2)] px-2 py-1.5 text-xs text-[var(--color-ink)] outline-none focus:border-[var(--color-red)]"

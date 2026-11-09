@@ -51,7 +51,7 @@ export function ToolsEditor({ buildId, stores }: ToolsEditorProps) {
             key={tool.id}
             className="flex items-center justify-between gap-2 rounded-md bg-[var(--color-surface-2)] px-3 py-1.5 text-sm"
           >
-            <span className="flex-1 truncate text-[var(--color-ink)]">
+            <span dir="ltr" className="flex-1 truncate text-left rtl:text-right text-[var(--color-ink)]">
               {tool.tool_name}
             </span>
             <button onClick={() => handleDelete(tool.id)}>
@@ -64,6 +64,7 @@ export function ToolsEditor({ buildId, stores }: ToolsEditorProps) {
       <div className="flex flex-wrap items-end gap-2">
         <input
           placeholder={t("admin.toolName")}
+          dir="auto"
           value={form.tool_name}
           onChange={(e) => setForm((f) => ({ ...f, tool_name: e.target.value }))}
           className="min-w-[140px] flex-1 rounded-md border border-[var(--color-line)] bg-[var(--color-surface-2)] px-2 py-1.5 text-xs text-[var(--color-ink)]"
@@ -82,6 +83,7 @@ export function ToolsEditor({ buildId, stores }: ToolsEditorProps) {
         </select>
         <input
           placeholder={t("admin.storeLink")}
+          dir="ltr"
           value={form.store_link}
           onChange={(e) => setForm((f) => ({ ...f, store_link: e.target.value }))}
           className="min-w-[160px] flex-1 rounded-md border border-[var(--color-line)] bg-[var(--color-surface-2)] px-2 py-1.5 text-xs text-[var(--color-ink)]"

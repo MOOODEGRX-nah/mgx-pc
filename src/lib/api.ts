@@ -66,7 +66,11 @@ export async function fetchBuildById(id: string): Promise<BuildWithRelations | n
   return { ...(build as Build), parts: parts as Part[], tools: tools as Tool[] };
 }
 
-export async function createBuild(build: Omit<Build, "id" | "created_at">) {
+export type NewBuild = Omit<Build, "id" | "created_at" | "is_published"> & {
+  is_published?: boolean;
+};
+
+export async function createBuild(build: NewBuild) {
   const { data, error } = await supabase
     .from("builds").insert(build).select().single();
   if (error) throw error;

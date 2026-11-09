@@ -7,6 +7,8 @@
    `supabase/schema.sql` بالكامل → اضغط **Run**.
    هذا ينشئ كل الجداول (`builds`, `parts`, `tools`, `stores`)، سياسات الحماية
    (RLS)، حاويات تخزين الصور، ويزرع بيانات تجريبية (3 أجهزة + متجرين).
+   بعدها شغّل `supabase/v2_catalog.sql` (كتالوج القطع، الأسعار، صلاحيات الأدمن).
+   الترتيب والتفاصيل في `supabase/README.md`.
 3. من **Authentication → Users → Add user** أنشئ مستخدم الأونر (بريد إلكتروني
    + كلمة مرور). هذا هو حساب الدخول لصفحة `/admin`.
 4. من **Project Settings → API** انسخ:

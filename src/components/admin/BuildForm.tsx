@@ -60,11 +60,11 @@ export function BuildForm({ build, onSaved, onCancel }: BuildFormProps) {
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div>
           <label className={lbl}>{t("admin.nameAr")}</label>
-          <input value={form.name_ar} onChange={(e) => setForm((f) => ({ ...f, name_ar: e.target.value }))} className={inp} />
+          <input dir="rtl" value={form.name_ar} onChange={(e) => setForm((f) => ({ ...f, name_ar: e.target.value }))} className={inp} />
         </div>
         <div>
           <label className={lbl}>{t("admin.nameEn")}</label>
-          <input value={form.name_en} onChange={(e) => setForm((f) => ({ ...f, name_en: e.target.value }))} className={inp} />
+          <input dir="ltr" value={form.name_en} onChange={(e) => setForm((f) => ({ ...f, name_en: e.target.value }))} className={inp} />
         </div>
         <div>
           <label className={lbl}>{t("admin.category")}</label>
@@ -89,12 +89,12 @@ export function BuildForm({ build, onSaved, onCancel }: BuildFormProps) {
         </div>
         <div>
           <label className={lbl}>{t("admin.descriptionAr")}</label>
-          <textarea value={form.description_ar} rows={2}
+          <textarea dir="rtl" value={form.description_ar} rows={2}
             onChange={(e) => setForm((f) => ({ ...f, description_ar: e.target.value }))} className={inp} />
         </div>
         <div>
           <label className={lbl}>{t("admin.descriptionEn")}</label>
-          <textarea value={form.description_en} rows={2}
+          <textarea dir="ltr" value={form.description_en} rows={2}
             onChange={(e) => setForm((f) => ({ ...f, description_en: e.target.value }))} className={inp} />
         </div>
 

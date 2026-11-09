@@ -2,6 +2,11 @@
 -- MGX(PC) — Supabase schema
 -- Run this once in your Supabase project's SQL editor
 -- (Dashboard → SQL Editor → New query → paste → Run)
+--
+-- NOTE: this file is the original v1 schema and is kept as-is.
+-- After running it, run `v2_catalog.sql` (see supabase/README.md).
+-- v2 fixes the category constraint, adds the component catalog, prices,
+-- videos, visitor builds, and restricts writes to the `admins` allow-list.
 -- ============================================================
 
 -- ---------- Tables ----------
