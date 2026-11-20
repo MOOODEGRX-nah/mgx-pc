@@ -2,10 +2,12 @@ import { useEffect, useState, type CSSProperties } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, ArrowRight, Cpu } from "lucide-react";
-import { fetchBuildById, fetchStores } from "../lib/api";
-import { SpecRow } from "../components/SpecRow";
+import { fetchStores } from "../lib/api";
+import { fetchBuildFull } from "../lib/buildsApi";
+import { groupItemsBySlot } from "../lib/buildItems";
+import { ItemRow } from "../components/ItemRow";
 import { Reveal } from "../components/Reveal";
-import { PART_TYPES, type BuildWithRelations, type Store } from "../types";
+import type { BuildFull, Store } from "../types";
 
 const CATEGORY_COLOR: Record<string, string> = {
   "high-end":      "text-yellow-400",
@@ -39,14 +41,14 @@ export function BuildDetail() {
   const isRtl = i18n.language === "ar";
   const BackIcon = isRtl ? ArrowRight : ArrowLeft;
 
-  const [build, setBuild] = useState<BuildWithRelations | null | undefined>(undefined);
+  const [build, setBuild] = useState<BuildFull | null | undefined>(undefined);
   const [stores, setStores]   = useState<Store[]>([]);
   const [imgErr, setImgErr]   = useState<string | null>(null);
 
   useEffect(() => {
     if (!id) return;
-    fetchBuildById(id).then(setBuild);
-    fetchStores().then(setStores);
+    fetchBuildFull(id).then(setBuild).catch(() => setBuild(null));
+    fetchStores().then(setStores).catch(() => setStores([]));
   }, [id]);
 
   // Loading skeleton
@@ -79,6 +81,11 @@ export function BuildDetail() {
   const name  = isRtl ? build.name_ar : build.name_en;
   const desc  = isRtl ? build.description_ar : build.description_en;
   const storeMap = new Map(stores.map((s) => [s.id, s]));
+  const groups = groupItemsBySlot(build.items);
+  const coreGroups = groups.filter((g) => g.slot !== "accessory");
+  const accessories = groups.find((g) => g.slot === "accessory")?.items ?? [];
+  const partsCount = coreGroups.reduce((n, g) => n + g.items.reduce((m, i) => m + i.quantity, 0), 0);
+  const accessoriesCount = accessories.reduce((n, i) => n + i.quantity, 0);
   const hasImg = !!build.image_url && imgErr !== build.image_url;
   const catColor = CATEGORY_COLOR[build.category] ?? "text-[var(--color-red)]";
 
@@ -113,14 +120,14 @@ export function BuildDetail() {
               <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-ink-faint)]">
                 {t("build.partsCount")}
               </p>
-              <p className="mt-0.5 text-xl font-black text-[var(--color-ink)]">{build.parts.length}</p>
+              <p className="mt-0.5 text-xl font-black text-[var(--color-ink)]">{partsCount}</p>
             </div>
-            {build.tools.length > 0 && (
+            {accessoriesCount > 0 && (
               <div className="stagger animate-scale-in rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] px-4 py-2.5" style={{ "--i": 4 } as CSSProperties}>
                 <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-ink-faint)]">
                   {t("build.tools")}
                 </p>
-                <p className="mt-0.5 text-xl font-black text-[var(--color-ink)]">{build.tools.length}</p>
+                <p className="mt-0.5 text-xl font-black text-[var(--color-ink)]">{accessoriesCount}</p>
               </div>
             )}
           </div>
@@ -198,37 +205,25 @@ export function BuildDetail() {
           {t("build.specs")}
         </h2>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {PART_TYPES.flatMap((type) => {
-            const part = build.parts.find((p) => p.type === type);
-            return part ? [{ type, part }] : [];
-          }).map(({ type, part }, index) => (
-            <Reveal key={part.id} delay={index * 60}>
-              <SpecRow
-                label={t(`partTypes.${type}`)}
-                valueName={part.part_name}
-                storeLink={part.store_link}
-                store={part.store_id ? storeMap.get(part.store_id) : null}
-              />
+          {coreGroups.flatMap((g) => g.items).map((item, index) => (
+            <Reveal key={item.component_id} delay={index * 60}>
+              <ItemRow label={t(`partTypes.${item.component.type}`)} item={item} stores={storeMap} />
             </Reveal>
           ))}
         </div>
       </section>
 
       {/* Tools */}
-      {build.tools.length > 0 && (
+      {accessories.length > 0 && (
         <section className="mt-10">
           <div className="trace-divider mb-8" />
           <h2 className="mb-5 font-[var(--font-display)] text-xl font-bold text-[var(--color-ink)]">
             {t("build.tools")}
           </h2>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {build.tools.map((tool, index) => (
-              <Reveal key={tool.id} delay={index * 60}>
-                <SpecRow
-                  valueName={tool.tool_name}
-                  storeLink={tool.store_link}
-                  store={tool.store_id ? storeMap.get(tool.store_id) : null}
-                />
+            {accessories.map((item, index) => (
+              <Reveal key={item.component_id} delay={index * 60}>
+                <ItemRow item={item} stores={storeMap} />
               </Reveal>
             ))}
           </div>

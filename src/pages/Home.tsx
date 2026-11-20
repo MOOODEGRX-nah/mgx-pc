@@ -3,21 +3,22 @@ import { useTranslation } from "react-i18next";
 import { Cpu } from "lucide-react";
 import { CategoryToggle } from "../components/CategoryToggle";
 import { BuildCard } from "../components/BuildCard";
-import { fetchBuilds } from "../lib/api";
-import type { Build, Category } from "../types";
+import { fetchBuildsWithSummary } from "../lib/buildsApi";
+import type { BuildWithSummary, Category } from "../types";
 
 export function Home() {
   const { t } = useTranslation();
   const [category, setCategory] = useState<Category>("high-end");
-  const [builds, setBuilds] = useState<Build[]>([]);
+  const [builds, setBuilds] = useState<BuildWithSummary[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let active = true;
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
-    fetchBuilds(category)
+    fetchBuildsWithSummary(category)
       .then((data) => { if (active) setBuilds(data); })
+      .catch(() => { if (active) setBuilds([]); })
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
   }, [category]);

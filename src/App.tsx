@@ -3,8 +3,9 @@ import { Navbar } from "./components/Navbar";
 import { Home } from "./pages/Home";
 import { BuildDetail } from "./pages/BuildDetail";
 import { AdminLogin } from "./pages/AdminLogin";
-import { AdminDashboard } from "./pages/AdminDashboard";
 import { AdminLayout } from "./pages/admin/AdminLayout";
+import { BuildsPage } from "./pages/admin/BuildsPage";
+import { BuildEditorPage } from "./pages/admin/BuildEditorPage";
 import { ComponentsPage } from "./pages/admin/ComponentsPage";
 import { SettingsPage } from "./pages/admin/SettingsPage";
 import { StoresManager } from "./components/admin/StoresManager";
@@ -33,7 +34,9 @@ function App() {
                 }
               >
                 <Route index element={<Navigate to="builds" replace />} />
-                <Route path="builds" element={<AdminDashboard />} />
+                <Route path="builds" element={<BuildsPage />} />
+                <Route path="builds/new" element={<BuildEditorPage />} />
+                <Route path="builds/:id" element={<BuildEditorPage key="edit" />} />
                 <Route path="components" element={<ComponentsPage />} />
                 <Route path="stores" element={<StoresManager />} />
                 <Route path="settings" element={<SettingsPage />} />

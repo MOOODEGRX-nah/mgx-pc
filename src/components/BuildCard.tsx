@@ -2,7 +2,8 @@ import type { MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, ArrowRight, Cpu } from "lucide-react";
-import type { Build, Category } from "../types";
+import { formatMoney } from "../lib/format";
+import type { BuildWithSummary, Category } from "../types";
 
 // Full class names (Tailwind cannot see classes built from template strings).
 const CATEGORY_META: Record<Category, { hoverText: string; badge: string; glow: string }> = {
@@ -35,13 +36,16 @@ function trackPointer(e: MouseEvent<HTMLElement>) {
   e.currentTarget.style.setProperty("--my", `${e.clientY - rect.top}px`);
 }
 
-export function BuildCard({ build }: { build: Build }) {
+export function BuildCard({ build }: { build: BuildWithSummary }) {
   const { t, i18n } = useTranslation();
   const isRtl = i18n.dir() === "rtl";
   const name = isRtl ? build.name_ar : build.name_en;
   const description = isRtl ? build.description_ar : build.description_en;
   const meta = CATEGORY_META[build.category] ?? CATEGORY_META["high-end"];
   const Arrow = isRtl ? ArrowLeft : ArrowRight;
+  const summary = build.summary;
+  const hasPrice = !!summary && summary.priced_count > 0;
+  const partial = hasPrice && summary.priced_count < summary.items_count;
 
   return (
     <Link
@@ -95,12 +99,20 @@ export function BuildCard({ build }: { build: Build }) {
             {description}
           </p>
         )}
-        <div className={`mt-3 flex items-center gap-1.5 text-xs font-medium text-[var(--color-ink-faint)] transition-colors duration-200 ${meta.hoverText}`}>
-          {t("home.viewBuild")}
-          <Arrow
-            size={13}
-            className="transition-transform duration-300 ltr:group-hover:translate-x-1 rtl:group-hover:-translate-x-1"
-          />
+        <div className="mt-3 flex items-end justify-between gap-2">
+          <div className={`flex items-center gap-1.5 text-xs font-medium text-[var(--color-ink-faint)] transition-colors duration-200 ${meta.hoverText}`}>
+            {t("home.viewBuild")}
+            <Arrow
+              size={13}
+              className="transition-transform duration-300 ltr:group-hover:translate-x-1 rtl:group-hover:-translate-x-1"
+            />
+          </div>
+          {hasPrice && (
+            <p className="text-end" title={partial ? t("price.someMissing") : undefined}>
+              {partial && <span className="block text-[10px] text-[var(--color-ink-faint)]">{t("price.startingAt")}</span>}
+              <bdi className="font-[var(--font-display)] text-base font-black text-[var(--color-ink)]">{formatMoney(summary.total_best, i18n.language)}</bdi>
+            </p>
+          )}
         </div>
       </div>
 

@@ -132,16 +132,17 @@ body {
   to { background-position: -200% 0; }
 }
 
-/* Smooth accordion: wrap content in .collapse > div */
-.collapse {
+/* Smooth accordion: wrap content in .accordion > div.
+   (Not named .collapse: Tailwind's `collapse` utility sets visibility: collapse.) */
+.accordion {
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.3s var(--ease-out-expo);
 }
-.collapse[data-open="true"] {
+.accordion[data-open="true"] {
   grid-template-rows: 1fr;
 }
-.collapse > * {
+.accordion > * {
   overflow: hidden;
   min-height: 0;
 }

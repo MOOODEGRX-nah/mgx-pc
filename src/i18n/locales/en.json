@@ -215,6 +215,32 @@
       "add": "Add {{name}}",
       "layers": "Layers: {{n}}",
       "selected": "Selected"
+    },
+    "builds": {
+      "title": "Builds",
+      "empty": "No builds yet",
+      "published": "Published",
+      "draft": "Draft",
+      "pricedOf": "Priced: {{priced}}/{{total}}",
+      "delete": "Delete build",
+      "confirmDelete": "Delete \"{{name}}\"? This cannot be undone.",
+      "backToList": "Back to builds",
+      "basics": "Basic info",
+      "components": "Components",
+      "componentsHint": "Pick parts from the catalog. Empty slots are fine (for example, no separate cooler).",
+      "perfTierWarning": "This build's CPU or GPU has no performance tier, so the advisor will skip it. Set it in the component catalog.",
+      "isPublished": "Published",
+      "isPublishedHint": "Unpublished builds are visible only to you.",
+      "nameRequired": "Enter the Arabic and English names.",
+      "uploadImage": "Upload image",
+      "compositeHint": "Or compose an image from the selected parts' pictures:",
+      "imageSaved": "Main image saved.",
+      "imageSetSaveBuild": "Image set. Save the build to keep it.",
+      "saveBuild": "Save build",
+      "saved": "Build saved.",
+      "unsaved": "Unsaved changes",
+      "leaveConfirm": "You have unsaved changes. Leave anyway?",
+      "viewPublic": "View on the site"
     }
   },
   "compat": {
@@ -227,7 +253,11 @@
     "psu_underpowered": "The {{wattage}} W power supply is below the recommended {{recommended}} W.",
     "no_gpu_no_igpu": "No graphics card selected and this CPU has no integrated graphics.",
     "no_cooler": "No CPU cooler selected and this CPU does not include one.",
-    "no_storage": "No storage drive selected."
+    "no_storage": "No storage drive selected.",
+    "title": "Compatibility",
+    "ok": "No problems found",
+    "incompatible": "May not fit",
+    "note": "Based on the specs we have. Always double-check before buying."
   },
   "errors": {
     "generic": "Something went wrong. Please try again.",
@@ -286,7 +316,44 @@
     }
   },
   "price": {
-    "none": "No price"
+    "none": "No price",
+    "total": "PC total",
+    "fromPrefix": "from",
+    "startingAt": "Starting at",
+    "someMissing": "Some prices are missing",
+    "partial": "Parts without a price: {{n}} — the total is incomplete.",
+    "noPrices": "No prices yet",
+    "accessories": "Accessories (not in the total)",
+    "lastUpdate": "Prices updated {{date}}",
+    "byStore": "Everything from one store",
+    "covers": "{{covered}} of {{total}} parts",
+    "otherLinks": "Other link",
+    "best": "Best",
+    "outOfStock": "Out of stock"
+  },
+  "slots": {
+    "case": "Case",
+    "cpu": "CPU",
+    "gpu": "GPU",
+    "ram": "RAM",
+    "storage": "Storage",
+    "cpu_cooler": "CPU Cooler",
+    "psu": "Power Supply",
+    "motherboard": "Motherboard",
+    "accessory": "Accessories"
+  },
+  "builder": {
+    "choose": "Choose {{slot}}",
+    "addAnother": "Add another",
+    "change": "Change",
+    "remove": "Remove",
+    "quantity": "Quantity",
+    "increase": "Increase quantity",
+    "decrease": "Decrease quantity",
+    "searchCatalog": "Search parts",
+    "noResults": "No matching parts",
+    "hidden": "Hidden from visitors",
+    "empty": "Pick parts to see the total"
   },
   "common": {
     "loading": "Loading...",

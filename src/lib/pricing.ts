@@ -125,6 +125,14 @@ export function totalsByStore(items: PricedItem[]): StoreTotal[] {
     .sort((a, b) => b.coveredCount - a.coveredCount || a.total - b.total);
 }
 
+/**
+ * The offer to link to: the best priced offer, or else the first offer that has a
+ * link (so components without prices still keep their store link).
+ */
+export function primaryOffer(offers: ComponentOffer[]): ComponentOffer | null {
+  return bestOffer(offers) ?? offers.find((o) => !!o.url) ?? null;
+}
+
 /** A price is stale when it was never confirmed or is older than `staleDays`. */
 export function isStale(updatedAt: string | null, staleDays: number, now: number = Date.now()): boolean {
   const t = timeOf(updatedAt);

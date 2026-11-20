@@ -1,7 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Download, Layers, Plus, RotateCcw, Save, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import type { Part } from "../types";
+import type { ComponentType } from "../types";
+
+/** Minimal part shape the editor needs (built from build items → components). */
+export interface CompositePart {
+  id: string;
+  type: ComponentType;
+  name: string;
+  image_url: string | null;
+}
 
 // ── Types ──────────────────────────────────────────────────────────────────
 interface Layer {
@@ -42,7 +50,7 @@ interface ResizeState {
 type Interaction = DragState | ResizeState;
 
 interface CompositeEditorProps {
-  parts: Part[];
+  parts: CompositePart[];
   onSave?: (blob: Blob) => Promise<void>;
 }
 
@@ -84,12 +92,12 @@ export function CompositeEditor({ parts, onSave }: CompositeEditorProps) {
   const partsWithImages = parts.filter((p) => p.image_url);
 
   // ── Layer ops ─────────────────────────────────────────────────────────
-  function addLayer(part: Part) {
+  function addLayer(part: CompositePart) {
     if (!part.image_url) return;
     const layerId = `${part.id}-${Date.now()}`;
     const imgUrl = part.image_url;
     const pType = part.type;
-    const pName = part.part_name;
+    const pName = part.name;
     setLayers((prev) => {
       const newLayer: Layer = {
         id: layerId,
@@ -321,7 +329,7 @@ export function CompositeEditor({ parts, onSave }: CompositeEditorProps) {
           <div className="flex flex-col gap-1.5 overflow-y-auto" style={{ maxHeight: "300px" }}>
             {partsWithImages.map((part) => (
               <button key={part.id} onClick={() => addLayer(part)}
-                title={t("admin.composite.add", { name: part.part_name })}
+                title={t("admin.composite.add", { name: part.name })}
                 className="group relative overflow-hidden rounded-lg border border-[var(--color-line)] bg-[var(--color-surface-2)] transition-all hover:border-[var(--color-red)]">
                 <img src={part.image_url!} alt="" className="h-14 w-full object-contain p-1" />
                 <div className="absolute inset-x-0 bottom-0 bg-[var(--color-bg)]/80 px-1 py-0.5">

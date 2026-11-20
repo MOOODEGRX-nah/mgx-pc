@@ -1,6 +1,7 @@
 import { supabase } from "./supabase";
 import { toAppError } from "./errors";
 import { byNumberThenText, toComponent, toNum, toOffers, toVideo } from "./rows";
+import { diffBuildItems } from "./buildItems";
 import type {
   Build, BuildFull, BuildItemWithComponent, BuildVideo, BuildWithSummary,
   Category, PriceSummary,
@@ -93,41 +94,31 @@ export async function fetchBuildFull(id: string): Promise<BuildFull | null> {
 export interface BuildItemInput {
   component_id: string;
   quantity: number;
-  sort_order?: number;
 }
 
 /**
- * Replaces a build's items with `items` using a diff: rows no longer present
- * are deleted, the rest are upserted on (build_id, component_id).
+ * Replaces a build's items with `items` (their order becomes sort_order): rows no
+ * longer present are deleted, the rest are upserted on (build_id, component_id).
  */
 export async function saveBuildItems(buildId: string, items: BuildItemInput[]): Promise<void> {
-  // last entry wins if a component appears twice
-  const unique = [...new Map(items.map((i) => [i.component_id, i])).values()];
-  const seen = new Set(unique.map((i) => i.component_id));
-  const rows = unique.map((i, index) => ({
-    build_id: buildId,
-    component_id: i.component_id,
-    quantity: Math.min(8, Math.max(1, Math.round(i.quantity))),
-    sort_order: i.sort_order ?? index,
-  }));
-
   const { data: existing, error: readError } = await supabase
     .from("build_items")
     .select("id, component_id")
     .eq("build_id", buildId);
   if (readError) throw toAppError(readError);
 
-  const removeIds = (existing ?? [])
-    .filter((e) => !seen.has(String(e.component_id)))
-    .map((e) => String(e.id));
-  if (removeIds.length > 0) {
-    const { error } = await supabase.from("build_items").delete().in("id", removeIds);
+  const diff = diffBuildItems(
+    (existing ?? []).map((e) => ({ id: String(e.id), component_id: String(e.component_id) })),
+    items,
+  );
+  if (diff.remove.length > 0) {
+    const { error } = await supabase.from("build_items").delete().in("id", diff.remove);
     if (error) throw toAppError(error);
   }
-  if (rows.length > 0) {
+  if (diff.upsert.length > 0) {
     const { error } = await supabase
       .from("build_items")
-      .upsert(rows, { onConflict: "build_id,component_id" });
+      .upsert(diff.upsert.map((row) => ({ ...row, build_id: buildId })), { onConflict: "build_id,component_id" });
     if (error) throw toAppError(error);
   }
 }

@@ -134,15 +134,18 @@ export function checkCompatibility(items: CompatItem[]): CompatWarning[] {
 }
 
 /**
- * Rules that would fail if `candidate` were added to (or replaced its slot in) `current`.
- * Used for the "incompatible" badge in pickers. Only errors are reported; the
- * candidate is still selectable.
+ * Errors that `candidate` would introduce if added to (or replacing its slot in)
+ * `current`. Used for the "incompatible" badge in pickers; the candidate stays selectable.
  */
-export function candidateConflicts(current: CompatItem[], candidate: CompatItem["component"]): CompatRuleId[] {
+export function candidateWarnings(current: CompatItem[], candidate: CompatItem["component"]): CompatWarning[] {
   const replacesSlot = candidate.type !== "ram" && !STORAGE_TYPES.includes(candidate.type) && candidate.type !== "accessory";
   const base = replacesSlot ? current.filter((i) => i.component.type !== candidate.type) : current;
   const before = new Set(checkCompatibility(base).filter((w) => w.severity === "error").map((w) => w.id));
   return checkCompatibility([...base, { quantity: 1, component: candidate }])
-    .filter((w) => w.severity === "error" && !before.has(w.id))
-    .map((w) => w.id);
+    .filter((w) => w.severity === "error" && !before.has(w.id));
+}
+
+/** Rule ids of candidateWarnings(). */
+export function candidateConflicts(current: CompatItem[], candidate: CompatItem["component"]): CompatRuleId[] {
+  return candidateWarnings(current, candidate).map((w) => w.id);
 }

@@ -42,10 +42,10 @@ npm run build
 | `eaf48c6` | Admin (old UI): English part names truncated from the start in Arabic; LTR/RTL direction on name/description/link inputs |
 | `1aec665` | Animations and polish on public pages (CSS only; `Reveal`, `PageTransition` components; scroll-to-top on navigation; BuildCard hover colour bug; console-equiv colour; Arabic letter-spacing) |
 | `c21b82c` | Handoff docs, `CLAUDE.md`, `supabase/tests/` (automated DB tests) |
+| Phase 3 | Build editor (`/admin/builds/new`, `/admin/builds/:id`) with catalog slot pickers (`BuildSlots`, `ComponentPicker`), live `BuildSummary`, composite editor on catalog parts; builds list; Home/BuildCard/BuildDetail on `fetchBuildsWithSummary`/`fetchBuildFull` (`ItemRow` lists every store offer); legacy parts/tools code and types removed; `.collapse` renamed `.accordion` (Tailwind's `collapse` hid accordion content) |
 | Phase 2 | Admin shell (`AdminLayout`, nested routes), `isAdmin` check + no-access screen, component catalog with type tabs/search/drawer/dynamic specs/offers/duplicate, settings page, i18n of old admin strings, `npm run lint:i18n` also checks that every literal `t("key")` exists |
 
-No UI uses the new catalog yet: Home, BuildDetail and the admin still read the legacy `parts`/`tools` tables
-through `src/lib/api.ts`. That is expected until Phase 3.
+Since Phase 3 no frontend code reads the legacy `parts`/`tools` tables (they stay in the database).
 
 ### 2.2 Production (Supabase project + GitHub Pages)
 
@@ -76,7 +76,7 @@ through `src/lib/api.ts`. That is expected until Phase 3.
 9. `no_gpu_no_igpu` / `no_cooler` warn only when the CPU spec explicitly says `false` (missing data disables rules).
 10. `psu_underpowered` also runs without a GPU (CPU TDP only), but is skipped when a GPU exists without `tdp_w`.
 11. Animations were added before Phase 3 (owner request). Reuse the utilities in `src/index.css`
-    (`animate-fade-up`, `animate-scale-in`, `animate-pop`, `.stagger` + `--i`, `.shimmer`, `.collapse`, `.spotlight`)
+    (`animate-fade-up`, `animate-scale-in`, `animate-pop`, `.stagger` + `--i`, `.shimmer`, `.accordion`, `.spotlight`)
     and the `Reveal` component in the new pages instead of inventing new ones.
 
 ---
@@ -121,14 +121,14 @@ Tabs for Prices and Visitor builds are added in Phases 4 and 6.
   long `name_ar / name_en` titles truncate from the wrong end in RTL;
   the image upload input shows the browser's English "Choose File / No file chosen" (use a styled button with i18n text).
 
-### Phase 3 — Build editor + public pages on the new model
+### Phase 3 — Build editor + public pages on the new model — DONE
 
-- [ ] Build editor page (`/admin/builds/new`, `/admin/builds/:id`): Basics (existing BuildForm fields + `is_published`), one row per core slot (`CORE_SLOTS`) with a searchable catalog picker (image, name, best price), RAM and Storage allow several items with quantity (`MULTI_ITEM_SLOTS`), Accessories block; sticky summary (live total `computeTotals`, partial notice, per-item prices, `checkCompatibility` warnings, `totalsByStore`); explicit Save (`saveBuildItems`) with unsaved-changes guard; warning when the build's CPU/GPU has no `perf_tier`.
-- [ ] `CompositeEditor` adapter: prop becomes `{ id; type; name; image_url }[]` mapped from `build_items → components`; composite generation and "save as main image" must behave exactly as before. Read the whole file first.
-- [ ] Builds list tab: image, names, category, published toggle, best total, `priced_count/items_count`, edit/delete.
-- [ ] Home + `BuildCard`: `fetchBuildsWithSummary`; total badge (`formatMoney`), "from {{amount}}" when partial, no badge when no prices. Keep the animations.
-- [ ] `BuildDetail`: `fetchBuildFull` (one request; the current 3 sequential requests take ~2.5 s), group items by slot (several RAM/storage rows), successor of `SpecRow` with best price + store and an expandable list of all offers; keep copy name / copy link / open store; console block unchanged.
-- [ ] Remove every frontend read of `parts`/`tools` (`grep -rn "\"parts\"\|\"tools\"" src` must be empty except legacy types); delete `PartsEditor`/`ToolsEditor` and the legacy API functions once unused. Tables stay in the DB.
+- [x] Build editor page (`/admin/builds/new`, `/admin/builds/:id`): Basics (existing BuildForm fields + `is_published`), one row per core slot (`CORE_SLOTS`) with a searchable catalog picker (image, name, best price), RAM and Storage allow several items with quantity (`MULTI_ITEM_SLOTS`), Accessories block; sticky summary (live total `computeTotals`, partial notice, per-item prices, `checkCompatibility` warnings, `totalsByStore`); explicit Save (`saveBuildItems`) with unsaved-changes guard; warning when the build's CPU/GPU has no `perf_tier`.
+- [x] `CompositeEditor` adapter: prop becomes `{ id; type; name; image_url }[]` mapped from `build_items → components`; composite generation and "save as main image" must behave exactly as before. Read the whole file first.
+- [x] Builds list tab: image, names, category, published toggle, best total, `priced_count/items_count`, edit/delete.
+- [x] Home + `BuildCard`: `fetchBuildsWithSummary`; total badge (`formatMoney`), "from {{amount}}" when partial, no badge when no prices. Keep the animations.
+- [x] `BuildDetail`: `fetchBuildFull` (one request; the current 3 sequential requests take ~2.5 s), group items by slot (several RAM/storage rows), successor of `SpecRow` with best price + store and an expandable list of all offers; keep copy name / copy link / open store; console block unchanged.
+- [x] Remove every frontend read of `parts`/`tools` (`grep -rn "\"parts\"\|\"tools\"" src` must be empty except legacy types); delete `PartsEditor`/`ToolsEditor` and the legacy API functions once unused. Tables stay in the DB.
 
 ### Phase 4 — Prices UI, PDF, copy list, stale queue
 
