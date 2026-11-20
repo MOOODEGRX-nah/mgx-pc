@@ -41,7 +41,8 @@ npm run build
 | `f7b9733` | Home hero glow caused horizontal scroll on phones (`overflow-x-clip`) |
 | `eaf48c6` | Admin (old UI): English part names truncated from the start in Arabic; LTR/RTL direction on name/description/link inputs |
 | `1aec665` | Animations and polish on public pages (CSS only; `Reveal`, `PageTransition` components; scroll-to-top on navigation; BuildCard hover colour bug; console-equiv colour; Arabic letter-spacing) |
-| (this commit) | Handoff docs, `CLAUDE.md`, `supabase/tests/` (automated DB tests) |
+| `c21b82c` | Handoff docs, `CLAUDE.md`, `supabase/tests/` (automated DB tests) |
+| Phase 2 | Admin shell (`AdminLayout`, nested routes), `isAdmin` check + no-access screen, component catalog with type tabs/search/drawer/dynamic specs/offers/duplicate, settings page, i18n of old admin strings, `npm run lint:i18n` also checks that every literal `t("key")` exists |
 
 No UI uses the new catalog yet: Home, BuildDetail and the admin still read the legacy `parts`/`tools` tables
 through `src/lib/api.ts`. That is expected until Phase 3.
@@ -97,20 +98,24 @@ through `src/lib/api.ts`. That is expected until Phase 3.
 
 Work in order. After each phase: all checks in section 1 green, the phase's tests in section 5 pass, one commit per phase.
 
-### Phase 2 — Admin shell + component catalog + offers (plan 6.4)
+### Phase 2 — Admin shell + component catalog + offers (plan 6.4) — DONE
 
-- [ ] `AuthContext`: after login call `supabase.rpc('is_admin')`, expose `isAdmin` (+ loading state).
-- [ ] `ProtectedRoute`: require session **and** `isAdmin`; logged-in non-admin sees a bilingual "no access" screen with a logout button.
-- [ ] `AdminLayout` (tab nav + `<Outlet/>`); routes `/admin` → redirect `/admin/builds`, `/admin/builds`, `/admin/builds/new`, `/admin/builds/:id`, `/admin/components`, `/admin/prices`, `/admin/visitor-builds`, `/admin/stores`, `/admin/settings`. Keep the old dashboard reachable until Phase 3 replaces it.
-- [ ] Components tab: chips Case · CPU · GPU · RAM · SSD (nvme+sata) · HDD · CPU Cooler · PSU · Motherboard · Accessories; list with search, thumbnail, name, best price, offers count, active toggle, "used in N builds" (`fetchComponents({ withUsage: true, includeInactive: true })`).
-- [ ] Create/edit drawer: type, name, Arabic name, brand, image upload (`part-images`), `perf_tier` (CPU/GPU only, with the tier legend from plan 5.2), dynamic spec inputs driven by `SPEC_SCHEMA` (respect `showIf`, `translateOptions`), `is_active`.
-- [ ] Offers editor in the drawer: store, URL (http/https only), price (SAR), in-stock tri-state, last updated, "Price confirmed today" (`touchOfferPrice`), delete, stale badge (`isStale` with `price_stale_days`).
-- [ ] "Duplicate component" action (`duplicateComponent`); friendly delete error (`AppError component_in_use` → `errors.component_in_use`).
-- [ ] Settings tab: `setup_allowance_sar`, `price_stale_days` (`settingsApi`).
-- [ ] Stores tab: existing `StoresManager`, logical direction classes, i18n parity.
-- [ ] i18n: `nav.*`, `admin.components.*`, `admin.settings.*`; fix hardcoded strings: console options in `BuildForm.tsx` (Arabic), toolbar/status text in `CompositeEditor.tsx` (English: "parts", "layers", "selected", "BG", "PNG", button titles).
-- [ ] Dialogs/drawers: focus trap, `Esc` closes, labelled controls (`<label htmlFor>`; current admin labels are not linked to inputs), touch targets ≥ 40 px.
-- [ ] Old-admin issues found during testing (fix here or make sure the new UI doesn't repeat them):
+The Builds tab still uses the legacy editor (`src/pages/AdminDashboard.tsx`) until Phase 3.
+Tabs for Prices and Visitor builds are added in Phases 4 and 6.
+
+
+- [x] `AuthContext`: after login call `supabase.rpc('is_admin')`, expose `isAdmin` (+ loading state).
+- [x] `ProtectedRoute`: require session **and** `isAdmin`; logged-in non-admin sees a bilingual "no access" screen with a logout button.
+- [x] `AdminLayout` (tab nav + `<Outlet/>`); routes `/admin` → redirect `/admin/builds`, `/admin/builds`, `/admin/builds/new`, `/admin/builds/:id`, `/admin/components`, `/admin/prices`, `/admin/visitor-builds`, `/admin/stores`, `/admin/settings`. Keep the old dashboard reachable until Phase 3 replaces it.
+- [x] Components tab: chips Case · CPU · GPU · RAM · SSD (nvme+sata) · HDD · CPU Cooler · PSU · Motherboard · Accessories; list with search, thumbnail, name, best price, offers count, active toggle, "used in N builds" (`fetchComponents({ withUsage: true, includeInactive: true })`).
+- [x] Create/edit drawer: type, name, Arabic name, brand, image upload (`part-images`), `perf_tier` (CPU/GPU only, with the tier legend from plan 5.2), dynamic spec inputs driven by `SPEC_SCHEMA` (respect `showIf`, `translateOptions`), `is_active`.
+- [x] Offers editor in the drawer: store, URL (http/https only), price (SAR), in-stock tri-state, last updated, "Price confirmed today" (`touchOfferPrice`), delete, stale badge (`isStale` with `price_stale_days`).
+- [x] "Duplicate component" action (`duplicateComponent`); friendly delete error (`AppError component_in_use` → `errors.component_in_use`).
+- [x] Settings tab: `setup_allowance_sar`, `price_stale_days` (`settingsApi`).
+- [x] Stores tab: existing `StoresManager`, logical direction classes, i18n parity.
+- [x] i18n: `nav.*`, `admin.components.*`, `admin.settings.*`; fix hardcoded strings: console options in `BuildForm.tsx` (Arabic), toolbar/status text in `CompositeEditor.tsx` (English: "parts", "layers", "selected", "BG", "PNG", button titles).
+- [x] Dialogs/drawers: focus trap, `Esc` closes, labelled controls (`<label htmlFor>`; current admin labels are not linked to inputs), touch targets ≥ 40 px.
+- [x] Old-admin issues found during testing (fix here or make sure the new UI doesn't repeat them):
   Navbar shows "Owner login" even when logged in (show "Dashboard"/logout instead);
   composite editor canvas is cleared after "save as main image" (the build list reload unmounts it);
   long `name_ar / name_en` titles truncate from the wrong end in RTL;

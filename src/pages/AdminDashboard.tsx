@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { LogOut, Pencil, Plus, Trash2 } from "lucide-react";
-import { useAuth } from "../context/AuthContext";
+import { Pencil, Plus, Trash2 } from "lucide-react";
 import {
   deleteBuild, fetchBuildById, fetchBuilds,
   fetchStores, updateBuild, uploadBlob,
@@ -9,16 +8,15 @@ import {
 import { BuildForm } from "../components/admin/BuildForm";
 import { PartsEditor } from "../components/admin/PartsEditor";
 import { ToolsEditor } from "../components/admin/ToolsEditor";
-import { StoresManager } from "../components/admin/StoresManager";
 import { CompositeEditor } from "../components/CompositeEditor";
 import type { Build, BuildWithRelations, Store } from "../types";
 
-type Tab = "builds" | "stores";
-
+/**
+ * Builds tab (legacy editor: free-text parts and tools). Replaced by the catalog-based
+ * build editor in Phase 3.
+ */
 export function AdminDashboard() {
-  const { t } = useTranslation();
-  const { signOut } = useAuth();
-  const [tab, setTab] = useState<Tab>("builds");
+  const { t, i18n } = useTranslation();
   const [builds, setBuilds] = useState<Build[]>([]);
   const [stores, setStores] = useState<Store[]>([]);
   const [loading, setLoading] = useState(true);
@@ -72,43 +70,9 @@ export function AdminDashboard() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
-      {/* Header */}
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="font-[var(--font-display)] text-2xl font-black text-[var(--color-ink)]">
-          {t("admin.dashboard")}
-        </h1>
-        <button
-          onClick={() => signOut()}
-          className="inline-flex items-center gap-1.5 text-sm text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-red)]"
-        >
-          <LogOut size={14} />
-          {t("admin.logout")}
-        </button>
-      </div>
-
-      {/* Tabs */}
-      <div className="mb-6 flex gap-2 border-b border-[var(--color-line)]">
-        {(["builds", "stores"] as Tab[]).map((tabKey) => (
-          <button
-            key={tabKey}
-            onClick={() => setTab(tabKey)}
-            className={`border-b-2 px-3 py-2 text-sm transition-colors ${
-              tab === tabKey
-                ? "border-[var(--color-red)] text-[var(--color-ink)]"
-                : "border-transparent text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]"
-            }`}
-          >
-            {t(tabKey === "builds" ? "admin.tabBuilds" : "admin.tabStores")}
-          </button>
-        ))}
-      </div>
-
-      {tab === "stores" && <StoresManager />}
-
-      {tab === "builds" && (
-        <div>
-          {loading ? (
+    <div>
+      <div>
+          {loading && builds.length === 0 ? (
             <p className="py-10 text-center text-sm text-[var(--color-ink-faint)]">
               {t("common.loading")}
             </p>
@@ -127,7 +91,10 @@ export function AdminDashboard() {
                     )}
                     <div className="flex-1 min-w-0">
                       <p className="truncate text-sm font-bold text-[var(--color-ink)]">
-                        {build.name_ar} / {build.name_en}
+                        {i18n.language === "ar" ? build.name_ar : build.name_en}
+                      </p>
+                      <p className="truncate text-[11px] text-[var(--color-ink-faint)]">
+                        {i18n.language === "ar" ? build.name_en : build.name_ar}
                       </p>
                       <span className="font-mono text-[10px] text-[var(--color-red)]">
                         {t(`categories.${build.category}`)}
@@ -208,8 +175,7 @@ export function AdminDashboard() {
               )}
             </div>
           )}
-        </div>
-      )}
+      </div>
     </div>
   );
 }

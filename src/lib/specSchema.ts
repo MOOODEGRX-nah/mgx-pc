@@ -165,3 +165,18 @@ export function specList(specs: ComponentSpecs | null | undefined, key: string):
   const list = v.map((x) => String(x).trim()).filter((x) => x !== "");
   return list.length > 0 ? list : undefined;
 }
+
+// ---------- admin form helpers ----------
+
+export type SpecDraft = Record<string, unknown>;
+
+/** Converts stored specs into editable form values (strings / string arrays). */
+export function specsToDraft(specs: Record<string, unknown> | null | undefined): SpecDraft {
+  const draft: SpecDraft = {};
+  for (const [key, value] of Object.entries(specs ?? {})) {
+    if (typeof value === "number") draft[key] = String(value);
+    else if (typeof value === "boolean") draft[key] = value ? "true" : "false";
+    else draft[key] = value;
+  }
+  return draft;
+}

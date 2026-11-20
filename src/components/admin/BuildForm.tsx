@@ -6,6 +6,10 @@ import {
   type ConsoleTarget, type PriceVsConsole, type PerfVsConsole,
 } from "../../types";
 
+const CONSOLE_TARGETS: ConsoleTarget[] = ["ps5", "xbox-series-x", "xbox-series-s", "nintendo-switch"];
+const PRICE_VS: PriceVsConsole[] = ["cheaper", "similar", "more-expensive"];
+const PERF_VS: PerfVsConsole[] = ["stronger", "similar", "weaker"];
+
 interface BuildFormProps {
   build?: Build;
   onSaved: (build: Build) => void;
@@ -107,11 +111,8 @@ export function BuildForm({ build, onSaved, onCancel }: BuildFormProps) {
                 onChange={(e) => setForm((f) => ({ ...f, console_target: e.target.value as ConsoleTarget | "" }))}
                 className={inp}
               >
-                <option value="">— اختر الكونسول —</option>
-                <option value="ps5">PlayStation 5</option>
-                <option value="xbox-series-x">Xbox Series X</option>
-                <option value="xbox-series-s">Xbox Series S</option>
-                <option value="nintendo-switch">Nintendo Switch</option>
+                <option value="">{t("admin.chooseConsole")}</option>
+                {CONSOLE_TARGETS.map((c) => <option key={c} value={c}>{t(`consoleTarget.${c}`)}</option>)}
               </select>
             </div>
             <div>
@@ -120,10 +121,8 @@ export function BuildForm({ build, onSaved, onCancel }: BuildFormProps) {
                 onChange={(e) => setForm((f) => ({ ...f, price_vs_console: e.target.value as PriceVsConsole | "" }))}
                 className={inp}
               >
-                <option value="">— اختر —</option>
-                <option value="cheaper">أرخص منه</option>
-                <option value="similar">متقارب معه</option>
-                <option value="more-expensive">أغلى منه</option>
+                <option value="">{t("admin.choose")}</option>
+                {PRICE_VS.map((v) => <option key={v} value={v}>{t(`priceVsConsole.${v}`)}</option>)}
               </select>
             </div>
             <div>
@@ -132,10 +131,8 @@ export function BuildForm({ build, onSaved, onCancel }: BuildFormProps) {
                 onChange={(e) => setForm((f) => ({ ...f, perf_vs_console: e.target.value as PerfVsConsole | "" }))}
                 className={inp}
               >
-                <option value="">— اختر —</option>
-                <option value="stronger">أقوى منه</option>
-                <option value="similar">متقارب معه</option>
-                <option value="weaker">أضعف منه</option>
+                <option value="">{t("admin.choose")}</option>
+                {PERF_VS.map((v) => <option key={v} value={v}>{t(`perfVsConsole.${v}`)}</option>)}
               </select>
             </div>
           </>

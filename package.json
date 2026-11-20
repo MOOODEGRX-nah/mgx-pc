@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "lint:i18n": "node scripts/check-i18n.mjs",
+    "lint:i18n": "node scripts/check-i18n.mjs && node scripts/find-missing-i18n.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "preview": "vite preview"

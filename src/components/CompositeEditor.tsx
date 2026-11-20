@@ -260,7 +260,7 @@ export function CompositeEditor({ parts, onSave }: CompositeEditorProps) {
         <div className="flex flex-1 flex-wrap items-center justify-end gap-1.5">
           {/* BG colour */}
           <label className="flex cursor-pointer items-center gap-1 rounded border border-[var(--color-line)] px-1.5 py-1 text-[10px] text-[var(--color-ink-muted)] hover:border-[var(--color-red)]">
-            <span>BG</span>
+            <span>{t("admin.composite.bg")}</span>
             <input type="color" value={bg} onChange={(e) => setBg(e.target.value)}
               className="h-4 w-4 cursor-pointer rounded border-0 p-0 bg-transparent" />
           </label>
@@ -268,15 +268,15 @@ export function CompositeEditor({ parts, onSave }: CompositeEditorProps) {
           {/* Layer order (shown only when a layer is selected) */}
           {selected && (
             <>
-              <button onClick={bringForward} title="Bring forward"
+              <button onClick={bringForward} title={t("admin.composite.bringForward")} aria-label={t("admin.composite.bringForward")}
                 className="rounded border border-[var(--color-line)] px-1.5 py-1 text-[10px] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]">
                 ↑
               </button>
-              <button onClick={sendBackward} title="Send backward"
+              <button onClick={sendBackward} title={t("admin.composite.sendBackward")} aria-label={t("admin.composite.sendBackward")}
                 className="rounded border border-[var(--color-line)] px-1.5 py-1 text-[10px] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]">
                 ↓
               </button>
-              <button onClick={deleteSelected} title="Delete selected"
+              <button onClick={deleteSelected} title={t("admin.composite.deleteSelected")} aria-label={t("admin.composite.deleteSelected")}
                 className="flex items-center gap-0.5 rounded border border-[var(--color-red-dim)] px-1.5 py-1 text-[10px] text-[var(--color-red)] hover:bg-[var(--color-red-dim)]">
                 <Trash2 size={10} />
               </button>
@@ -285,7 +285,8 @@ export function CompositeEditor({ parts, onSave }: CompositeEditorProps) {
 
           {/* Clear */}
           <button onClick={() => { setLayers([]); setSelectedId(null); }}
-            title="Clear canvas"
+            title={t("admin.composite.clear")}
+            aria-label={t("admin.composite.clear")}
             className="flex items-center gap-0.5 rounded border border-[var(--color-line)] px-1.5 py-1 text-[10px] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]">
             <RotateCcw size={10} />
           </button>
@@ -315,17 +316,17 @@ export function CompositeEditor({ parts, onSave }: CompositeEditorProps) {
         {/* Left sidebar: part thumbnails */}
         <div className="flex w-[100px] shrink-0 flex-col gap-1.5">
           <p className="font-mono text-[9px] uppercase tracking-wider text-[var(--color-ink-faint)]">
-            {partsWithImages.length > 0 ? `${partsWithImages.length} parts` : t("admin.noPartImages")}
+            {partsWithImages.length > 0 ? t("admin.composite.parts", { n: partsWithImages.length }) : t("admin.noPartImages")}
           </p>
           <div className="flex flex-col gap-1.5 overflow-y-auto" style={{ maxHeight: "300px" }}>
             {partsWithImages.map((part) => (
               <button key={part.id} onClick={() => addLayer(part)}
-                title={`Add ${part.part_name}`}
+                title={t("admin.composite.add", { name: part.part_name })}
                 className="group relative overflow-hidden rounded-lg border border-[var(--color-line)] bg-[var(--color-surface-2)] transition-all hover:border-[var(--color-red)]">
                 <img src={part.image_url!} alt="" className="h-14 w-full object-contain p-1" />
                 <div className="absolute inset-x-0 bottom-0 bg-[var(--color-bg)]/80 px-1 py-0.5">
-                  <p className="truncate text-center font-mono text-[7px] uppercase text-[var(--color-ink-faint)]">
-                    {part.type}
+                  <p className="truncate text-center font-mono text-[7px] uppercase text-[var(--color-ink-faint)] rtl:tracking-normal">
+                    {t(`partTypes.${part.type}`)}
                   </p>
                 </div>
                 <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
@@ -413,8 +414,8 @@ export function CompositeEditor({ parts, onSave }: CompositeEditorProps) {
       {/* Status bar */}
       <div className="border-t border-[var(--color-line)] px-3 py-1.5">
         <p className="font-mono text-[9px] text-[var(--color-ink-faint)]">
-          {layers.length} layer{layers.length !== 1 ? "s" : ""}
-          {selected ? ` · selected: ${selected.partType} · ${selected.w.toFixed(0)}%×${selected.h.toFixed(0)}%` : ""}
+          {t("admin.composite.layers", { n: layers.length })}
+          {selected ? ` · ${t("admin.composite.selected")}: ${t(`partTypes.${selected.partType}`)} · ${selected.w.toFixed(0)}%×${selected.h.toFixed(0)}%` : ""}
         </p>
       </div>
     </div>

@@ -1,7 +1,8 @@
 {
   "nav": {
     "siteName": "MGX(PC)",
-    "admin": "Owner login"
+    "admin": "Owner login",
+    "dashboard": "Dashboard"
   },
   "home": {
     "welcomeTo": "Your build starts here",
@@ -107,7 +108,114 @@
     "perfVsConsole": "Performance vs Console",
     "imageEditor": "Image Editor",
     "addToCanvas": "Click a part to add it to the canvas",
-    "noPartImages": "Add part images first"
+    "noPartImages": "Add part images first",
+    "choose": "— Choose —",
+    "chooseConsole": "— Choose console —",
+    "noAccessTitle": "No access",
+    "noAccessBody": "This account is not allowed to manage the site. Sign out and use the owner account.",
+    "nav": {
+      "builds": "Builds",
+      "components": "Components",
+      "prices": "Prices",
+      "visitorBuilds": "Visitor builds",
+      "stores": "Stores",
+      "settings": "Settings"
+    },
+    "components": {
+      "title": "Component catalog",
+      "add": "Add component",
+      "search": "Search by name, Arabic name or brand",
+      "empty": "No components here yet",
+      "groups": {
+        "case": "Case",
+        "cpu": "CPU",
+        "gpu": "GPU",
+        "ram": "RAM",
+        "ssd": "SSD",
+        "hdd": "HDD",
+        "cpu_cooler": "CPU Cooler",
+        "psu": "PSU",
+        "motherboard": "Motherboard",
+        "accessory": "Accessories"
+      },
+      "newTitle": "New component",
+      "editTitle": "Edit component",
+      "type": "Type",
+      "name": "Name (as sold, usually English)",
+      "nameRequired": "Enter the component name.",
+      "nameAr": "Arabic name (optional)",
+      "nameArHint": "Shown on the Arabic site instead of the name. Mostly useful for accessories.",
+      "brand": "Brand",
+      "image": "Image",
+      "uploadImage": "Upload image",
+      "removeImage": "Remove image",
+      "perfTier": "Performance tier (used by the advisor)",
+      "perfTierNone": "Not set",
+      "perfTierHint": "Builds whose CPU or GPU has no tier are left out of advisor results.",
+      "tiers": {
+        "1": "Entry / esports at 1080p low-medium",
+        "2": "Solid 1080p",
+        "3": "High 1080p / entry 1440p",
+        "4": "Strong 1440p / entry 4K",
+        "5": "High-end 4K"
+      },
+      "tierShort": "Tier {{tier}}",
+      "specs": "Specifications",
+      "specsHint": "All optional. Filled specs enable the compatibility warnings.",
+      "isActive": "Visible on the site",
+      "isActiveHint": "Hidden components stay in existing builds but cannot be picked by visitors.",
+      "activeShort": "Visible",
+      "saved": "Saved.",
+      "createdAddOffers": "Created. You can now add store offers below.",
+      "saveFirstForOffers": "Save the component first, then add its store offers.",
+      "duplicate": "Duplicate",
+      "duplicated": "Copy created. Rename it and add its offers.",
+      "copySuffix": "(copy)",
+      "offersCount": "Offers: {{n}}",
+      "usedIn": "In builds: {{n}}",
+      "delete": "Delete component"
+    },
+    "offers": {
+      "title": "Store offers and prices",
+      "add": "Add offer",
+      "empty": "No offers yet. Add the store link and price.",
+      "store": "Store",
+      "url": "Product link",
+      "price": "Price (SAR)",
+      "invalidPrice": "Enter a valid price (0 or more).",
+      "inStock": "Stock",
+      "stockUnknown": "Unknown",
+      "stockYes": "In stock",
+      "stockNo": "Out of stock",
+      "updated": "Price updated",
+      "never": "never",
+      "best": "Best price",
+      "stale": "Price may be outdated",
+      "confirmToday": "Price confirmed today",
+      "open": "Open",
+      "confirmDelete": "Delete this offer?",
+      "delete": "Delete offer"
+    },
+    "settings": {
+      "title": "Settings",
+      "setup_allowance_sar": "Setup allowance",
+      "setup_allowance_sar_hint": "Amount the advisor reserves for keyboard, mouse, headset, monitor, desk and chair when the visitor buys the setup within their budget.",
+      "price_stale_days": "Days before a price counts as outdated",
+      "price_stale_days_hint": "Offers not confirmed for this many days get an \"outdated\" badge in the admin.",
+      "saved": "Settings saved.",
+      "invalid": "Check the value of \"{{field}}\"."
+    },
+    "composite": {
+      "bg": "Background",
+      "bringForward": "Bring forward",
+      "sendBackward": "Send backward",
+      "deleteSelected": "Delete selected layer",
+      "clear": "Clear canvas",
+      "parts": "Parts: {{n}}",
+      "add": "Add {{name}}",
+      "layers": "Layers: {{n}}",
+      "selected": "Selected"
+    }
   },
   "compat": {
     "socket_mismatch": "CPU socket ({{cpu}}) does not match the motherboard socket ({{board}}).",
@@ -177,10 +285,17 @@
       "other": "Other"
     }
   },
+  "price": {
+    "none": "No price"
+  },
   "common": {
     "loading": "Loading...",
     "error": "Something went wrong",
     "language": "AR",
-    "pageNotFound": "Page not found"
+    "pageNotFound": "Page not found",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "unknown": "Not set"
   }
 }

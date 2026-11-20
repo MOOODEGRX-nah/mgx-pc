@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 
 export function Navbar() {
   const { t, i18n } = useTranslation();
-  const { session } = useAuth();
+  const { session, isAdmin } = useAuth();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -53,10 +53,10 @@ export function Navbar() {
           </button>
           {/* Admin link */}
           <Link
-            to={session ? "/admin" : "/admin/login"}
+            to={session && isAdmin ? "/admin" : "/admin/login"}
             className="inline-flex items-center gap-1.5 rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] px-3 py-1.5 text-xs font-medium text-[var(--color-ink-muted)] transition-all hover:border-[var(--color-red)] hover:text-[var(--color-ink)] active:scale-95"
           >
-            {t("nav.admin")}
+            {session && isAdmin ? t("nav.dashboard") : t("nav.admin")}
           </Link>
         </div>
       </div>
