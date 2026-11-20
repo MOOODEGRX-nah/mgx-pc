@@ -1,12 +1,15 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { LogOut } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
+import { countNewUserBuilds } from "../../lib/userBuildsApi";
 
 const TABS = [
   { to: "builds", key: "builds" },
   { to: "components", key: "components" },
   { to: "prices", key: "prices" },
+  { to: "visitor-builds", key: "visitorBuilds" },
   { to: "stores", key: "stores" },
   { to: "settings", key: "settings" },
 ] as const;
@@ -15,6 +18,12 @@ const TABS = [
 export function AdminLayout() {
   const { t } = useTranslation();
   const { signOut } = useAuth();
+  const { pathname } = useLocation();
+  const [newCount, setNewCount] = useState(0);
+  const refreshCounts = useCallback(() => {
+    countNewUserBuilds().then(setNewCount).catch(() => setNewCount(0));
+  }, []);
+  useEffect(refreshCounts, [refreshCounts, pathname]);
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10">
@@ -45,12 +54,17 @@ export function AdminLayout() {
               }
             >
               {t(`admin.nav.${tab.key}`)}
+              {tab.key === "visitorBuilds" && newCount > 0 && (
+                <span className="ms-1.5 min-w-5 animate-pop rounded-full bg-[var(--color-red)] px-1.5 text-center text-[10px] font-bold leading-5 text-white" aria-label={t("admin.visitorBuilds.newCount", { n: newCount })}>
+                  {newCount}
+                </span>
+              )}
             </NavLink>
           ))}
         </div>
       </nav>
 
-      <Outlet />
+      <Outlet context={{ refreshCounts }} />
     </div>
   );
 }

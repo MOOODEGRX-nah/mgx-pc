@@ -1,7 +1,7 @@
 import { useEffect, useState, type CSSProperties } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, ArrowRight, Check, ClipboardList, Cpu, FileDown } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, ClipboardList, Cpu, FileDown, Wrench } from "lucide-react";
 import { fetchStores } from "../lib/api";
 import { fetchBuildFull } from "../lib/buildsApi";
 import { groupItemsBySlot } from "../lib/buildItems";
@@ -201,6 +201,12 @@ export function BuildDetail() {
             {listCopied ? <Check size={16} className="animate-pop text-[var(--color-red)]" /> : <ClipboardList size={16} />}
             {listCopied ? t("build.listCopied") : t("build.copyList")}
           </button>
+          <Link
+            to={`/builder?from=${build.id}`}
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-[var(--color-line)] px-4 text-sm text-[var(--color-ink-muted)] transition-colors hover:border-[var(--color-red)] hover:text-[var(--color-ink)] active:scale-[0.98]"
+          >
+            <Wrench size={16} /> {t("build.openInBuilder")}
+          </Link>
         </div>
       </Reveal>
 
@@ -295,7 +301,7 @@ export function BuildDetail() {
         </section>
       )}
     </div>
-    <BuildPrintSheet build={build} stores={storeMap} pageUrl={pageUrl} />
+    <BuildPrintSheet title={pickLang(build, "name", lang)} category={build.category} items={build.items} stores={storeMap} pageUrl={pageUrl} />
     </>
   );
 }

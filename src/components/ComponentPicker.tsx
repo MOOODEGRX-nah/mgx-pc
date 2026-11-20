@@ -68,6 +68,7 @@ export function ComponentPicker({ open, title, types, catalog, current, excludeI
                   <span dir="ltr" className="block truncate text-start text-sm text-[var(--color-ink)] rtl:text-right">{pickLang(c, "name", lang)}</span>
                   <span className="flex flex-wrap gap-x-2 text-[11px] text-[var(--color-ink-faint)]">
                     {types.length > 1 && <span>{t(`partTypes.${c.type}`)}</span>}
+                    {c.perf_tier && <span>{t("builder.tier", { tier: c.perf_tier })}</span>}
                     {!c.is_active && <span className="text-yellow-400">{t("builder.hidden")}</span>}
                     {warnings.length > 0 && (
                       <span className="inline-flex items-center gap-1 text-orange-400" title={warnings.map((w) => t(`compat.${w.id}`, w.params)).join("\n")}>

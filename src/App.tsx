@@ -9,6 +9,8 @@ import { BuildEditorPage } from "./pages/admin/BuildEditorPage";
 import { ComponentsPage } from "./pages/admin/ComponentsPage";
 import { SettingsPage } from "./pages/admin/SettingsPage";
 import { PricesPage } from "./pages/admin/PricesPage";
+import { VisitorBuildsPage } from "./pages/admin/VisitorBuildsPage";
+import { BuilderPage } from "./pages/BuilderPage";
 import { StoresManager } from "./components/admin/StoresManager";
 import { NotFound } from "./pages/NotFound";
 import { ProtectedRoute } from "./components/ProtectedRoute";
@@ -25,6 +27,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/build/:id" element={<BuildDetail />} />
+              <Route path="/builder" element={<BuilderPage />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route
                 path="/admin"
@@ -40,6 +43,7 @@ function App() {
                 <Route path="builds/:id" element={<BuildEditorPage key="edit" />} />
                 <Route path="components" element={<ComponentsPage />} />
                 <Route path="prices" element={<PricesPage />} />
+                <Route path="visitor-builds" element={<VisitorBuildsPage />} />
                 <Route path="stores" element={<StoresManager />} />
                 <Route path="settings" element={<SettingsPage />} />
                 <Route path="*" element={<Navigate to="builds" replace />} />

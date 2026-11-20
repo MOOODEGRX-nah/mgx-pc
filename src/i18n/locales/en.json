@@ -2,7 +2,14 @@
   "nav": {
     "siteName": "MGX(PC)",
     "admin": "Owner login",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "home": "Home",
+    "advisor": "Advisor",
+    "builder": "Build your PC",
+    "main": "Main navigation",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "switchLanguage": "Switch to Arabic"
   },
   "home": {
     "welcomeTo": "Your build starts here",
@@ -35,7 +42,8 @@
     "exportPdf": "Export PDF",
     "pdfHint": "In the print window choose \"Save as PDF\".",
     "copyList": "Copy shopping list",
-    "listCopied": "List copied"
+    "listCopied": "List copied",
+    "openInBuilder": "Customize in the builder"
   },
   "consoleTarget": {
     "ps5": "PlayStation 5",
@@ -256,6 +264,35 @@
       "openStore": "Open store page",
       "allFresh": "All prices are up to date.",
       "empty": "No offers yet. Add them in the component catalog."
+    },
+    "visitorBuilds": {
+      "title": "Visitor builds",
+      "subtitle": "Builds sent from the public builder. Identical builds are merged and counted.",
+      "all": "All",
+      "status": {
+        "new": "New",
+        "reviewed": "Reviewed",
+        "published": "Published",
+        "archived": "Archived"
+      },
+      "untitled": "Untitled build",
+      "builtBy": "Visitors: {{n}}",
+      "items": "Parts: {{n}}",
+      "liveTotal": "Total now",
+      "atSubmit": "when sent",
+      "answers": "Advisor answers",
+      "empty": "No visitor builds here.",
+      "newCount": "New: {{n}}",
+      "publish": "Publish as build",
+      "publishTitle": "Publish as a site build",
+      "publishConfirm": "Publish",
+      "categoryHint": "Suggested from the GPU tier or the total. Change it if needed.",
+      "publishedNotice": "Published. You can add an image and description in the build editor.",
+      "openBuild": "Open build",
+      "markReviewed": "Mark reviewed",
+      "archive": "Archive",
+      "delete": "Delete",
+      "confirmDelete": "Delete this visitor build?"
     }
   },
   "compat": {
@@ -368,7 +405,31 @@
     "searchCatalog": "Search parts",
     "noResults": "No matching parts",
     "hidden": "Hidden from visitors",
-    "empty": "Pick parts to see the total"
+    "empty": "Pick parts to see the total",
+    "title": "Build your PC",
+    "intro": "Pick each part from our catalog. We show live prices, a total and compatibility warnings. Your selection is kept in this browser.",
+    "myBuild": "My PC build",
+    "tier": "Tier {{tier}}",
+    "target": "Advisor target",
+    "targetBudget": "Budget",
+    "targetGpu": "GPU tier {{tier}}+",
+    "targetCpu": "CPU tier {{tier}}+",
+    "vsBudget": "Your budget",
+    "save": "Send to MGX(PC)",
+    "copy": "Copy list",
+    "reset": "Start over",
+    "resetConfirm": "Clear all selected parts?",
+    "draftNote": "Your selection is saved in this browser only.",
+    "saveTitle": "Send your build",
+    "saveIntro": "Send this build to the MGX(PC) team. Popular builds may be published on the site.",
+    "label": "Name your build (optional)",
+    "labelPlaceholder": "e.g. My first gaming PC",
+    "privacy": "We do not collect any personal information: only the parts, the optional name and the site language.",
+    "minimum": "Add at least: {{parts}}.",
+    "listSeparator": ", ",
+    "send": "Send build",
+    "sending": "Sending…",
+    "sent": "Thanks! Your build was sent for review."
   },
   "print": {
     "component": "Component",
@@ -407,6 +468,23 @@
     "confirmDelete": "Delete this video?",
     "savedImmediately": "Video changes are saved immediately.",
     "saveBuildFirst": "Save the build first, then add videos."
+  },
+  "advisor": {
+    "options": {
+      "gameType": {
+        "competitive": "Competitive / shooters",
+        "light": "Light games",
+        "aaa": "Heavy AAA games"
+      },
+      "usage": {
+        "gaming_only": "Gaming only",
+        "study_and_gaming": "Study and gaming"
+      },
+      "hasSetup": {
+        "yes": "Has a setup",
+        "no": "No setup"
+      }
+    }
   },
   "common": {
     "loading": "Loading...",

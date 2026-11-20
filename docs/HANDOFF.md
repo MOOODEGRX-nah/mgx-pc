@@ -42,6 +42,7 @@ npm run build
 | `eaf48c6` | Admin (old UI): English part names truncated from the start in Arabic; LTR/RTL direction on name/description/link inputs |
 | `1aec665` | Animations and polish on public pages (CSS only; `Reveal`, `PageTransition` components; scroll-to-top on navigation; BuildCard hover colour bug; console-equiv colour; Arabic letter-spacing) |
 | `c21b82c` | Handoff docs, `CLAUDE.md`, `supabase/tests/` (automated DB tests) |
+| Phase 6 | `/builder` (`BuilderPage`: draft in localStorage, `?from=` clone, advisor target banner, save dialog with honeypot, PDF, copy list, reset), `/admin/visitor-builds` inbox (status filter, live vs snapshot total, publish as build with suggested category, review/archive/delete, tab badge), responsive navbar |
 | Phase 5 | `VideosEditor` in the build editor (saved immediately, reorder), `VideoFacade` on the build page (thumbnail, iframe only after click, youtube-nocookie) |
 | Phase 4 | Build page price card (`BuildSummary`: total, partial notice, accessories, last update, compatibility, one-store totals), PDF via `window.print()` + `BuildPrintSheet` (light print CSS, full URLs), copy shopping list (`shoppingListText`, clipboard fallback), `/admin/prices` queue (`fetchOffersQueue`) |
 | Phase 3 | Build editor (`/admin/builds/new`, `/admin/builds/:id`) with catalog slot pickers (`BuildSlots`, `ComponentPicker`), live `BuildSummary`, composite editor on catalog parts; builds list; Home/BuildCard/BuildDetail on `fetchBuildsWithSummary`/`fetchBuildFull` (`ItemRow` lists every store offer); legacy parts/tools code and types removed; `.collapse` renamed `.accordion` (Tailwind's `collapse` hid accordion content) |
@@ -144,13 +145,13 @@ Tabs for Prices and Visitor builds are added in Phases 4 and 6.
 - [x] Admin: add/remove/reorder videos (paste URL → `parseYouTube`; titles ar/en, game, resolution, settings, approx FPS, start), small preview; invalid links rejected with a translated message.
 - [x] Public: lazy facade (thumbnail via `youtubeThumbnailUrl`, iframe only after click via `youtubeEmbedUrl`, `youtube-nocookie.com`, no autoplay), caption, "≈ N FPS", "Approximate performance — results vary" note.
 
-### Phase 6 — Public builder + visitor submissions inbox
+### Phase 6 — Public builder + visitor submissions inbox — DONE
 
-- [ ] `/builder`: slots like the admin, picker dialog with search/type filter/best price/"incompatible" badge (`candidateConflicts`), totals, warnings, Save / Export PDF / Copy list / Reset.
-- [ ] Draft in `localStorage` key `mgxpc-draft-build` (versioned JSON, try/catch); prefill from `?budget=&gpuTier=&cpuTier=` and `?from=<buildId>`.
-- [ ] Save: optional label ≤ 80, hidden honeypot input `website`, `submitUserBuild`, map errors to `errors.*`, success message, no personal data (say so in the UI). Client-side minimum: CPU + Motherboard + RAM.
-- [ ] `/admin/visitor-builds`: inbox (`fetchUserBuilds`), `new` badge on the tab (`countNewUserBuilds`), live total vs `total_snapshot`, answers summary, detail with prices + compat warnings, actions Publish as build (`publishUserBuildAsBuild`, suggest a category), Mark reviewed, Archive, Delete.
-- [ ] Navbar: Home · Advisor · Builder + language + admin link, collapses on small screens; language switch must not reset builder/advisor state.
+- [x] `/builder`: slots like the admin, picker dialog with search/type filter/best price/"incompatible" badge (`candidateConflicts`), totals, warnings, Save / Export PDF / Copy list / Reset.
+- [x] Draft in `localStorage` key `mgxpc-draft-build` (versioned JSON, try/catch); prefill from `?budget=&gpuTier=&cpuTier=` and `?from=<buildId>`.
+- [x] Save: optional label ≤ 80, hidden honeypot input `website`, `submitUserBuild`, map errors to `errors.*`, success message, no personal data (say so in the UI). Client-side minimum: CPU + Motherboard + RAM.
+- [x] `/admin/visitor-builds`: inbox (`fetchUserBuilds`), `new` badge on the tab (`countNewUserBuilds`), live total vs `total_snapshot`, answers summary, detail with prices + compat warnings, actions Publish as build (`publishUserBuildAsBuild`, suggest a category), Mark reviewed, Archive, Delete.
+- [x] Navbar: Home · Advisor · Builder + language + admin link, collapses on small screens; language switch must not reset builder/advisor state.
 
 ### Phase 7 — Advisor (`/advisor`)
 

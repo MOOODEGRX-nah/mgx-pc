@@ -3,10 +3,12 @@ import { groupItemsBySlot } from "../lib/buildItems";
 import { formatDate, formatMoney } from "../lib/format";
 import { pickLang } from "../lib/i18nData";
 import { bestOffer, computeTotals, primaryOffer } from "../lib/pricing";
-import type { BuildFull, Store } from "../types";
+import type { Category, ItemWithComponent, Store } from "../types";
 
 interface BuildPrintSheetProps {
-  build: BuildFull;
+  title: string;
+  category?: Category;
+  items: ItemWithComponent[];
   stores: Map<string, Store>;
   pageUrl: string;
 }
@@ -15,19 +17,19 @@ interface BuildPrintSheetProps {
  * Printable shopping sheet (hidden on screen, shown by @media print). Links are
  * printed in full as text so the PDF stays useful on paper. Follows the UI language.
  */
-export function BuildPrintSheet({ build, stores, pageUrl }: BuildPrintSheetProps) {
+export function BuildPrintSheet({ title, category, items, stores, pageUrl }: BuildPrintSheetProps) {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
-  const totals = computeTotals(build.items);
-  const groups = groupItemsBySlot(build.items);
+  const totals = computeTotals(items);
+  const groups = groupItemsBySlot(items);
 
   return (
     <div className="print-sheet hidden print:block">
       <header className="mb-4 border-b border-black pb-3">
         <p className="text-xs font-bold tracking-wide">MGX(PC)</p>
-        <h1 className="text-2xl font-black">{pickLang(build, "name", lang)}</h1>
+        <h1 className="text-2xl font-black">{title}</h1>
         <p className="text-xs">
-          {t(`categories.${build.category}`)} · {t("print.generated", { date: formatDate(new Date(), lang) })}
+          {category && <>{t(`categories.${category}`)} · </>}{t("print.generated", { date: formatDate(new Date(), lang) })}
         </p>
         <p dir="ltr" className="text-start text-[10px] rtl:text-right">{pageUrl}</p>
       </header>
