@@ -42,6 +42,7 @@ npm run build
 | `eaf48c6` | Admin (old UI): English part names truncated from the start in Arabic; LTR/RTL direction on name/description/link inputs |
 | `1aec665` | Animations and polish on public pages (CSS only; `Reveal`, `PageTransition` components; scroll-to-top on navigation; BuildCard hover colour bug; console-equiv colour; Arabic letter-spacing) |
 | `c21b82c` | Handoff docs, `CLAUDE.md`, `supabase/tests/` (automated DB tests) |
+| Phase 7 | `/advisor` (`AdvisorPage`, rules in `src/lib/advisor.ts` with 11 tests, candidates from `fetchAdvisorCandidates`), home CTAs to the advisor and builder |
 | Phase 6 | `/builder` (`BuilderPage`: draft in localStorage, `?from=` clone, advisor target banner, save dialog with honeypot, PDF, copy list, reset), `/admin/visitor-builds` inbox (status filter, live vs snapshot total, publish as build with suggested category, review/archive/delete, tab badge), responsive navbar |
 | Phase 5 | `VideosEditor` in the build editor (saved immediately, reorder), `VideoFacade` on the build page (thumbnail, iframe only after click, youtube-nocookie) |
 | Phase 4 | Build page price card (`BuildSummary`: total, partial notice, accessories, last update, compatibility, one-store totals), PDF via `window.print()` + `BuildPrintSheet` (light print CSS, full URLs), copy shopping list (`shoppingListText`, clipboard fallback), `/admin/prices` queue (`fetchOffersQueue`) |
@@ -153,10 +154,10 @@ Tabs for Prices and Visitor builds are added in Phases 4 and 6.
 - [x] `/admin/visitor-builds`: inbox (`fetchUserBuilds`), `new` badge on the tab (`countNewUserBuilds`), live total vs `total_snapshot`, answers summary, detail with prices + compat warnings, actions Publish as build (`publishUserBuildAsBuild`, suggest a category), Mark reviewed, Archive, Delete.
 - [x] Navbar: Home · Advisor · Builder + language + admin link, collapses on small screens; language switch must not reset builder/advisor state.
 
-### Phase 7 — Advisor (`/advisor`)
+### Phase 7 — Advisor (`/advisor`) — DONE
 
-- [ ] `src/lib/advisor.ts` (pure): effective budget (setup allowance), resolution clamp to monitor, GPU tier table, CPU tier rule (+1 for competitive ≥ 144 Hz), study RAM/SSD preference, candidate grouping (complete vs partial prices), ranking (a)/(b)/(c), "you need about X SAR" + builder CTA, accessory suggestions. Exact rules: plan section 7, Phase 7.
-- [ ] UI: one question per screen, progress, back button, answers in state + `sessionStorage` key `mgxpc-advisor`; conditional questions 2b and 6.
+- [x] `src/lib/advisor.ts` (pure): effective budget (setup allowance), resolution clamp to monitor, GPU tier table, CPU tier rule (+1 for competitive ≥ 144 Hz), study RAM/SSD preference, candidate grouping (complete vs partial prices), ranking (a)/(b)/(c), "you need about X SAR" + builder CTA, accessory suggestions. Exact rules: plan section 7, Phase 7.
+- [x] UI: one question per screen, progress, back button, answers in state + `sessionStorage` key `mgxpc-advisor`; conditional questions 2b and 6.
 
 ### Phase 8 — Automatic price sync (only with owner go-ahead and credentials)
 

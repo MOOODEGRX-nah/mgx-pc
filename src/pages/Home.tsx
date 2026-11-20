@@ -1,6 +1,7 @@
 import { useEffect, useState, type CSSProperties } from "react";
 import { useTranslation } from "react-i18next";
-import { Cpu } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Cpu, Sparkles, Wrench } from "lucide-react";
 import { CategoryToggle } from "../components/CategoryToggle";
 import { BuildCard } from "../components/BuildCard";
 import { fetchBuildsWithSummary } from "../lib/buildsApi";
@@ -66,6 +67,14 @@ export function Home() {
           >
             {t("home.tagline")}
           </p>
+          <div className="stagger mt-7 flex animate-fade-up flex-wrap justify-center gap-3" style={{ "--i": 3 } as CSSProperties}>
+            <Link to="/advisor" className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-[var(--color-red)] px-5 text-sm font-bold text-white shadow-[0_0_24px_rgba(225,6,0,0.35)] transition-all hover:-translate-y-0.5 hover:shadow-[0_0_32px_rgba(225,6,0,0.5)] active:translate-y-0">
+              <Sparkles size={16} /> {t("home.ctaAdvisor")}
+            </Link>
+            <Link to="/builder" className="inline-flex min-h-12 items-center gap-2 rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] px-5 text-sm text-[var(--color-ink)] transition-all hover:-translate-y-0.5 hover:border-[var(--color-red)] active:translate-y-0">
+              <Wrench size={16} /> {t("home.ctaBuilder")}
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -74,7 +83,7 @@ export function Home() {
 
       {/* ── BUILDS ───────────────────────────────────────────────── */}
       <section className="mx-auto max-w-6xl px-4 py-12 pb-24 sm:px-6">
-        <div className="stagger animate-fade-up" style={{ "--i": 3 } as CSSProperties}>
+        <div className="stagger animate-fade-up" style={{ "--i": 4 } as CSSProperties}>
           <CategoryToggle value={category} onChange={setCategory} />
         </div>
 

@@ -2,6 +2,7 @@ import { supabase } from "./supabase";
 import { toAppError } from "./errors";
 import { byNumberThenText, toComponent, toNum, toOffers, toVideo } from "./rows";
 import { diffBuildItems } from "./buildItems";
+import { toCandidate, type AdvisorCandidate, type CandidateItem } from "./advisor";
 import type {
   Build, BuildFull, BuildItemWithComponent, BuildVideo, BuildWithSummary,
   Category, PriceSummary,
@@ -151,4 +152,33 @@ export async function reorderVideos(ids: string[]): Promise<void> {
   );
   const failed = results.find((r) => r.error);
   if (failed?.error) throw toAppError(failed.error);
+}
+
+// ---------- Advisor ----------
+
+/** Published builds (RLS) with their summary and the CPU/GPU/RAM/storage data the advisor needs. */
+export async function fetchAdvisorCandidates(): Promise<AdvisorCandidate<BuildWithSummary>[]> {
+  const [buildsRes, summaryRes] = await Promise.all([
+    supabase.from("builds").select("*, build_items(quantity, components(type, perf_tier, specs))").order("created_at", { ascending: false }),
+    supabase.from("build_price_summary").select("*"),
+  ]);
+  if (buildsRes.error) throw toAppError(buildsRes.error);
+  if (summaryRes.error) throw toAppError(summaryRes.error);
+  const summaries = new Map((summaryRes.data ?? []).map((r) => { const s = toSummary(r as Row); return [s.build_id, s]; }));
+
+  return (buildsRes.data ?? []).map((raw) => {
+    const row = raw as Row;
+    const items: CandidateItem[] = (Array.isArray(row.build_items) ? row.build_items : [])
+      .map((i) => i as Row)
+      .filter((i) => i.components)
+      .map((i) => {
+        const c = toComponent({ id: "", name: "", ...(i.components as Row) });
+        return { quantity: toNum(i.quantity) ?? 1, component: { type: c.type, perf_tier: c.perf_tier, specs: c.specs } };
+      });
+    const rest = { ...row };
+    delete rest.build_items;
+    const build: BuildWithSummary = { ...toBuild(rest), summary: summaries.get(String(row.id)) ?? null };
+    const s = build.summary;
+    return toCandidate(build, items, s?.total_best ?? 0, s?.priced_count ?? 0, s?.items_count ?? 0);
+  });
 }

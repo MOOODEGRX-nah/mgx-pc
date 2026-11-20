@@ -15,7 +15,9 @@
     "welcomeTo": "Your build starts here",
     "tagline": "Pick a tier, grab any part in a second — store link or part name, ready to copy.",
     "noBuilds": "No builds in this category yet",
-    "viewBuild": "View details"
+    "viewBuild": "View details",
+    "ctaAdvisor": "Help me choose",
+    "ctaBuilder": "Build your PC"
   },
   "categories": {
     "high-end": "High-End PC",
@@ -292,7 +294,11 @@
       "markReviewed": "Mark reviewed",
       "archive": "Archive",
       "delete": "Delete",
-      "confirmDelete": "Delete this visitor build?"
+      "confirmDelete": "Delete this visitor build?",
+      "setup": {
+        "yes": "Has a setup",
+        "no": "No setup"
+      }
     }
   },
   "compat": {
@@ -481,9 +487,78 @@
         "study_and_gaming": "Study and gaming"
       },
       "hasSetup": {
-        "yes": "Has a setup",
-        "no": "No setup"
+        "yes": "Yes, I have one",
+        "no": "No, I don't"
+      },
+      "setupPlan": {
+        "within_budget": "Within this budget",
+        "separate": "Separately"
+      },
+      "quality": {
+        "1080p": "1080p (Full HD)",
+        "1440p": "1440p (2K)",
+        "4k": "4K"
       }
+    },
+    "title": "PC advisor",
+    "intro": "Answer a few quick questions and we will suggest the builds that fit your budget and games.",
+    "progress": "Question {{current}} of {{total}}",
+    "back": "Back",
+    "next": "Next",
+    "showResults": "Show results",
+    "changeAnswers": "Change answers",
+    "startOver": "Start over",
+    "unsure": "Not sure",
+    "budgetLabel": "Budget (SAR)",
+    "setupItems": "Keyboard, mouse, headset, monitor, desk and chair.",
+    "setupAllowanceNote": "We set aside about {{amount}} for the setup.",
+    "monitorResolution": "Resolution",
+    "monitorRefresh": "Refresh rate",
+    "questions": {
+      "budget": "What is your budget?",
+      "hasSetup": "Do you already have a setup?",
+      "setupPlan": "Buy the setup within this budget or separately?",
+      "gameType": "What kind of games do you play?",
+      "usage": "Gaming only, or study too?",
+      "quality": "What quality do you want?",
+      "monitor": "What is your monitor?"
+    },
+    "hints": {
+      "gameType": {
+        "competitive": "Valorant, Fortnite, CS2, Apex: high frame rates matter.",
+        "light": "Minecraft, Roblox, indie and older games.",
+        "aaa": "Big new releases: Cyberpunk, Call of Duty, Elden Ring."
+      },
+      "quality": {
+        "1080p": "The most common, best value.",
+        "1440p": "Sharper; needs a stronger graphics card.",
+        "4k": "The sharpest; needs a high-end graphics card."
+      }
+    },
+    "result": {
+      "lookingFor": "What we looked for",
+      "budget": "Budget for the PC",
+      "afterSetup": "(after setting aside {{amount}} for the setup)",
+      "resolution": "Target resolution",
+      "required": "Graphics card tier {{gpu}}+ and processor tier {{cpu}}+",
+      "clamped": "Your monitor is {{monitor}}, so we aimed for {{monitor}} instead of {{quality}}.",
+      "setupExtra": "You chose to buy the setup separately: it costs extra on top of this budget.",
+      "matches": "Builds that fit",
+      "bestMatch": "Best match",
+      "tiers": "GPU tier {{gpu}} · CPU tier {{cpu}}",
+      "studyWarning": "Needs 16 GB RAM and an SSD for study",
+      "needAbout": "None of our builds reach your target within this budget. You need about {{amount}} more.",
+      "noneYet": "We do not have a build for this target yet. Try the builder to put one together.",
+      "cheapestForTarget": "Cheapest build for your target",
+      "openBuilder": "Build my own with these targets",
+      "belowTarget": "Within budget but below your target",
+      "belowTargetHint": "These cost less but will run your games at lower settings.",
+      "priceIncomplete": "Price incomplete",
+      "priceIncompleteHint": "Some parts of these builds have no price yet, so we cannot compare them with your budget.",
+      "notRated": "Builds not rated yet and left out: {{n}}.",
+      "setupTitle": "Setup suggestions",
+      "setupFits": "Total {{total}}, within the {{allowance}} set aside.",
+      "setupOver": "Total {{total}}, more than the {{allowance}} set aside."
     }
   },
   "common": {

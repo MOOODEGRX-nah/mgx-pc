@@ -32,7 +32,7 @@ function answersSummary(a: AdvisorAnswers | null, t: (k: string, o?: Record<stri
   if (a.gameType) parts.push(t(`advisor.options.gameType.${a.gameType}`));
   if (a.quality) parts.push(a.quality);
   if (a.usage) parts.push(t(`advisor.options.usage.${a.usage}`));
-  if (a.hasSetup) parts.push(t(`advisor.options.hasSetup.${a.hasSetup}`));
+  if (a.hasSetup) parts.push(t(`admin.visitorBuilds.setup.${a.hasSetup}`));
   return parts.join(" · ");
 }
 

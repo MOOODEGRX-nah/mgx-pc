@@ -11,6 +11,7 @@ import { SettingsPage } from "./pages/admin/SettingsPage";
 import { PricesPage } from "./pages/admin/PricesPage";
 import { VisitorBuildsPage } from "./pages/admin/VisitorBuildsPage";
 import { BuilderPage } from "./pages/BuilderPage";
+import { AdvisorPage } from "./pages/AdvisorPage";
 import { StoresManager } from "./components/admin/StoresManager";
 import { NotFound } from "./pages/NotFound";
 import { ProtectedRoute } from "./components/ProtectedRoute";
@@ -28,6 +29,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/build/:id" element={<BuildDetail />} />
               <Route path="/builder" element={<BuilderPage />} />
+              <Route path="/advisor" element={<AdvisorPage />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route
                 path="/admin"
