@@ -51,7 +51,7 @@ Collected by reading the repo (2 commits on `main`). Treat as the baseline.
 8. `BuildDetail` issues 3 sequential queries per build (N+1 style); `Home` fetches builds with no price summary.
 9. `CompositeEditor.tsx` (422 lines, canvas-based composite image generator) takes `Part[]` (`type`, `part_name`, `image_url`). It must keep working after parts become catalog components — see Phase 3. **Read it completely before touching it; only its first ~60 lines were reviewed when writing this plan.**
 
-**Conventions to keep:** dark theme tokens (`--color-bg`, `--color-surface`, `--color-surface-2/3`, `--color-line`, `--color-red`, `--color-ink`, `--color-ink-muted`, `--color-ink-faint`), Tajawal + JetBrains Mono fonts, `font-[var(--font-display)]` headings, `trace-divider`, lucide icons, `t("…")` for every user-visible string, existing component styling patterns (`rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)]`).
+**Conventions to keep:** dark theme tokens (`--color-bg`, `--color-surface`, `--color-surface-2/3`, `--color-line`, `--color-red`, `--color-ink`, `--color-ink-muted`, `--color-ink-faint`), Tajawal + JetBrains Mono fonts, `font-display` headings (Tailwind v4 theme utility; `font-[var(...)]` does not set the family), `trace-divider`, lucide icons, `t("…")` for every user-visible string, existing component styling patterns (`rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)]`).
 
 ---
 

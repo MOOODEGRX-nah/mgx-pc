@@ -128,7 +128,7 @@ export function BuilderPage() {
     <>
       <div className="mx-auto max-w-6xl px-4 pb-24 pt-8 sm:px-6 print:hidden">
         <div className="mb-6 animate-fade-up">
-          <h1 className="font-[var(--font-display)] text-3xl font-black text-[var(--color-ink)] sm:text-4xl">{t("builder.title")}</h1>
+          <h1 className="font-display text-3xl font-black text-[var(--color-ink)] sm:text-4xl">{t("builder.title")}</h1>
           <p className="mt-2 max-w-2xl text-sm text-[var(--color-ink-muted)]">{t("builder.intro")}</p>
         </div>
 
@@ -144,7 +144,8 @@ export function BuilderPage() {
         {loadError && <p role="alert" className="mb-4 text-sm text-[var(--color-red-glow)]">{loadError}</p>}
 
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start">
-          <section className="min-w-0 rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-4">
+          <section className="min-w-0 rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-4" aria-labelledby="builder-parts">
+            <h2 id="builder-parts" className="sr-only">{t("admin.builds.components")}</h2>
             {loaded ? (
               <BuildSlots catalog={catalog} value={items} onChange={(next) => { setItems(next); setSendResult(null); }} />
             ) : (

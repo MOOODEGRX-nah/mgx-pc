@@ -128,7 +128,7 @@ export function AdvisorPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 pb-24 pt-8 sm:px-6">
       <div className="mb-6 animate-fade-up">
-        <h1 className="font-[var(--font-display)] text-3xl font-black text-[var(--color-ink)] sm:text-4xl">{t("advisor.title")}</h1>
+        <h1 className="font-display text-3xl font-black text-[var(--color-ink)] sm:text-4xl">{t("advisor.title")}</h1>
         <p className="mt-2 text-sm text-[var(--color-ink-muted)]">{t("advisor.intro")}</p>
       </div>
 
@@ -139,12 +139,12 @@ export function AdvisorPage() {
             <div className="mb-1.5 flex justify-between text-[11px] text-[var(--color-ink-faint)]">
               <span>{t("advisor.progress", { current: stepIndex + 1, total: steps.length })}</span>
             </div>
-            <div className="h-1.5 overflow-hidden rounded-full bg-[var(--color-surface-3)]" role="progressbar" aria-valuemin={0} aria-valuemax={steps.length} aria-valuenow={stepIndex + 1}>
+            <div className="h-1.5 overflow-hidden rounded-full bg-[var(--color-surface-3)]" role="progressbar" aria-label={t("advisor.progress", { current: stepIndex + 1, total: steps.length })} aria-valuemin={0} aria-valuemax={steps.length} aria-valuenow={stepIndex + 1}>
               <div className="h-full rounded-full bg-[var(--color-red)] transition-[width] duration-500 ease-[var(--ease-out-expo)]" style={{ width: `${((stepIndex + 1) / steps.length) * 100}%` }} />
             </div>
           </div>
 
-          <h2 id={`${fid}-q`} className="mb-4 font-[var(--font-display)] text-xl font-bold text-[var(--color-ink)]">{t(`advisor.questions.${step}`)}</h2>
+          <h2 id={`${fid}-q`} className="mb-4 font-display text-xl font-bold text-[var(--color-ink)]">{t(`advisor.questions.${step}`)}</h2>
 
           {step === "budget" && (
             <div>
@@ -210,7 +210,7 @@ export function AdvisorPage() {
         <section className="flex flex-col gap-6">
           {/* What we looked for */}
           <div className="animate-fade-up rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5">
-            <h2 className="mb-3 font-[var(--font-display)] text-lg font-bold text-[var(--color-ink)]">{t("advisor.result.lookingFor")}</h2>
+            <h2 className="mb-3 font-display text-lg font-bold text-[var(--color-ink)]">{t("advisor.result.lookingFor")}</h2>
             <ul className="flex flex-col gap-1.5 text-sm text-[var(--color-ink-muted)]">
               <li>{t("advisor.result.budget")}: <bdi className="font-bold text-[var(--color-ink)]">{formatMoney(result.effectiveBudget, lang)}</bdi>
                 {result.effectiveBudget !== result.budget && <span className="ms-1 text-xs">{t("advisor.result.afterSetup", { amount: formatMoney(allowance, lang) })}</span>}
@@ -225,7 +225,7 @@ export function AdvisorPage() {
           {/* (a) matches */}
           {result.matches.length > 0 && (
             <div>
-              <h2 className="mb-3 font-[var(--font-display)] text-lg font-bold text-[var(--color-ink)]">{t("advisor.result.matches")}</h2>
+              <h2 className="mb-3 font-display text-lg font-bold text-[var(--color-ink)]">{t("advisor.result.matches")}</h2>
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 {result.matches.map((c, i) => card(c, i, i === 0 ? t("advisor.result.bestMatch") : undefined))}
               </div>
@@ -253,7 +253,7 @@ export function AdvisorPage() {
           {/* (b) below target */}
           {result.belowTarget.length > 0 && (
             <div>
-              <h2 className="mb-1 font-[var(--font-display)] text-lg font-bold text-[var(--color-ink)]">{t("advisor.result.belowTarget")}</h2>
+              <h2 className="mb-1 font-display text-lg font-bold text-[var(--color-ink)]">{t("advisor.result.belowTarget")}</h2>
               <p className="mb-3 text-xs text-[var(--color-ink-faint)]">{t("advisor.result.belowTargetHint")}</p>
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">{result.belowTarget.map((c, i) => card(c, i))}</div>
             </div>
@@ -262,7 +262,7 @@ export function AdvisorPage() {
           {/* price incomplete */}
           {result.priceIncomplete.length > 0 && (
             <div>
-              <h2 className="mb-1 font-[var(--font-display)] text-lg font-bold text-[var(--color-ink)]">{t("advisor.result.priceIncomplete")}</h2>
+              <h2 className="mb-1 font-display text-lg font-bold text-[var(--color-ink)]">{t("advisor.result.priceIncomplete")}</h2>
               <p className="mb-3 text-xs text-[var(--color-ink-faint)]">{t("advisor.result.priceIncompleteHint")}</p>
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">{result.priceIncomplete.map((c, i) => card(c, i))}</div>
             </div>
@@ -275,7 +275,7 @@ export function AdvisorPage() {
           {/* Setup suggestions */}
           {answers.hasSetup === "no" && accessoryPicks.picks.length > 0 && (
             <div className="rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5">
-              <h2 className="mb-3 font-[var(--font-display)] text-lg font-bold text-[var(--color-ink)]">{t("advisor.result.setupTitle")}</h2>
+              <h2 className="mb-3 font-display text-lg font-bold text-[var(--color-ink)]">{t("advisor.result.setupTitle")}</h2>
               <ul className="flex flex-col gap-1.5 text-sm">
                 {accessoryPicks.picks.map((p) => (
                   <li key={p.category} className="flex items-baseline justify-between gap-2">

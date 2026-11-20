@@ -50,10 +50,10 @@ export function Navbar() {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
         {/* Logo */}
         <Link to="/" className="group flex items-baseline gap-0.5">
-          <span className="font-[var(--font-display)] text-xl font-black tracking-tight text-[var(--color-ink)] transition-colors group-hover:text-white">
+          <span className="font-display text-xl font-black tracking-tight text-[var(--color-ink)] transition-colors group-hover:text-white">
             MGX
           </span>
-          <span className="font-[var(--font-display)] text-xl font-black tracking-tight text-[var(--color-red)] drop-shadow-[0_0_8px_rgba(225,6,0,0.6)] transition-[filter] duration-300 group-hover:drop-shadow-[0_0_14px_rgba(255,43,31,0.9)]">
+          <span className="font-display text-xl font-black tracking-tight text-[var(--color-red)] drop-shadow-[0_0_8px_rgba(225,6,0,0.6)] transition-[filter] duration-300 group-hover:drop-shadow-[0_0_14px_rgba(255,43,31,0.9)]">
             (PC)
           </span>
         </Link>
@@ -66,7 +66,7 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <button type="button" onClick={toggleLanguage} className={chipCls} aria-label={t("nav.switchLanguage")}>
+          <button type="button" onClick={toggleLanguage} className={chipCls} aria-label={`${t("common.language")} — ${t("nav.switchLanguage")}`}>
             <span className="font-mono text-[10px] font-bold tracking-widest">{t("common.language")}</span>
           </button>
           <Link to={session && isAdmin ? "/admin" : "/admin/login"} className={`${chipCls} hidden sm:inline-flex`}>

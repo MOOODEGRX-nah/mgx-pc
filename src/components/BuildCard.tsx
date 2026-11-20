@@ -85,13 +85,15 @@ export function BuildCard({ build }: { build: BuildWithSummary }) {
             meta.badge,
           ].join(" ")}
         >
-          {t(`categories.${build.category}`)}
+          <span className={/[\u0600-\u06FF]/.test(t(`categories.${build.category}`)) ? "font-body" : undefined}>
+            {t(`categories.${build.category}`)}
+          </span>
         </span>
       </div>
 
       {/* Content */}
       <div className="p-4">
-        <h3 className="font-[var(--font-display)] text-base font-bold leading-snug text-[var(--color-ink)]">
+        <h3 className="font-display text-base font-bold leading-snug text-[var(--color-ink)]">
           {name}
         </h3>
         {description && (
@@ -110,7 +112,7 @@ export function BuildCard({ build }: { build: BuildWithSummary }) {
           {hasPrice && (
             <p className="text-end" title={partial ? t("price.someMissing") : undefined}>
               {partial && <span className="block text-[10px] text-[var(--color-ink-faint)]">{t("price.startingAt")}</span>}
-              <bdi className="font-[var(--font-display)] text-base font-black text-[var(--color-ink)]">{formatMoney(summary.total_best, i18n.language)}</bdi>
+              <bdi className="font-display text-base font-black text-[var(--color-ink)]">{formatMoney(summary.total_best, i18n.language)}</bdi>
             </p>
           )}
         </div>

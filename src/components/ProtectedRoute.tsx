@@ -25,7 +25,7 @@ export function ProtectedRoute({ children }: { children: ReactNode }) {
     return (
       <div className="mx-auto flex max-w-md animate-fade-up flex-col items-center px-4 py-24 text-center">
         <ShieldAlert size={40} className="mb-4 text-[var(--color-red)]" />
-        <h1 className="font-[var(--font-display)] text-xl font-bold text-[var(--color-ink)]">{t("admin.noAccessTitle")}</h1>
+        <h1 className="font-display text-xl font-bold text-[var(--color-ink)]">{t("admin.noAccessTitle")}</h1>
         <p className="mt-2 text-sm text-[var(--color-ink-muted)]">{t("admin.noAccessBody")}</p>
         <button
           type="button"

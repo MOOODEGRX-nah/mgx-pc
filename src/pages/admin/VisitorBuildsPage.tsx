@@ -86,7 +86,7 @@ export function VisitorBuildsPage() {
 
   return (
     <div>
-      <h2 className="mb-1 font-[var(--font-display)] text-xl font-bold text-[var(--color-ink)]">{t("admin.visitorBuilds.title")}</h2>
+      <h2 className="mb-1 font-display text-xl font-bold text-[var(--color-ink)]">{t("admin.visitorBuilds.title")}</h2>
       <p className="mb-4 text-xs text-[var(--color-ink-muted)]">{t("admin.visitorBuilds.subtitle")}</p>
 
       <div className="mb-4 flex flex-wrap gap-2" role="tablist">

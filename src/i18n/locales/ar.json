@@ -17,7 +17,8 @@
     "noBuilds": "لا توجد أجهزة في هذه الفئة بعد",
     "viewBuild": "عرض التفاصيل",
     "ctaAdvisor": "ساعدني أختار",
-    "ctaBuilder": "ركّب جهازك"
+    "ctaBuilder": "ركّب جهازك",
+    "buildsHeading": "أجهزة جاهزة"
   },
   "categories": {
     "high-end": "High-End PC",

@@ -19,6 +19,9 @@ Supabase, deployed to GitHub Pages from `main` (base path `/mgx-pc/`).
 - RTL-safe CSS: logical utilities (`ms-/me-/ps-/pe-/start-/end-/text-start`), `ltr:`/`rtl:` variants when needed,
   `dir="ltr"` on part names, URLs, prices and model numbers, no letter-spacing on Arabic text (`rtl:tracking-normal`).
 - Reuse the motion utilities in `src/index.css` and `src/components/Reveal.tsx`; respect `prefers-reduced-motion`.
+- Tailwind v4: use theme utilities (`font-display`, `font-body`), not `font-[var(--font-…)]` (it does not set the family).
+  Never name a custom class like a Tailwind utility (e.g. `.collapse` hid content; the accordion class is `.accordion`).
+- Text colours: `--color-ink-muted` / `--color-ink-faint` pass WCAG AA; do not use darker greys for text.
 - No new runtime dependencies without asking. Dev dependency allowed: vitest.
 - Never put secrets in `VITE_*` variables or in the repo. Only the Supabase URL and anon key are public.
 - Never run write/delete probes against the production database. Test data on the live site must be named

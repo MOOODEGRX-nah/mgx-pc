@@ -37,7 +37,7 @@ export function Home() {
         {/* Faint circuit grid, fading out towards the edges */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 animate-fade-in opacity-[0.035] [background-image:linear-gradient(var(--color-ink-faint)_1px,transparent_1px),linear-gradient(90deg,var(--color-ink-faint)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:radial-gradient(ellipse_60%_55%_at_center,black_10%,transparent_75%)]"
+          className="pointer-events-none absolute inset-0 animate-fade-in opacity-60 [background-image:linear-gradient(var(--color-line)_1px,transparent_1px),linear-gradient(90deg,var(--color-line)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:radial-gradient(ellipse_60%_55%_at_center,black_10%,transparent_75%)]"
         />
 
         <div className="relative mx-auto max-w-6xl px-4 pt-16 pb-12 text-center sm:pt-24 sm:pb-16 sm:px-6">
@@ -50,13 +50,13 @@ export function Home() {
               <span className="absolute inset-0 animate-ping-soft rounded-full bg-[var(--color-red)]" />
               <span className="relative h-1.5 w-1.5 rounded-full bg-[var(--color-red)] shadow-[0_0_6px_2px_rgba(225,6,0,0.5)]" />
             </span>
-            <span className="font-mono text-[11px] uppercase tracking-widest text-[var(--color-red)]">
+            <span className="font-mono text-[11px] uppercase tracking-widest text-[var(--color-red-glow)]">
               MGX(PC) — Saudi PC Market
             </span>
           </div>
 
           <h1
-            className="stagger animate-fade-up font-[var(--font-display)] text-4xl font-black leading-[1.1] text-[var(--color-ink)] sm:text-6xl lg:text-7xl"
+            className="stagger animate-fade-up font-display text-4xl font-black leading-[1.1] text-[var(--color-ink)] sm:text-6xl lg:text-7xl"
             style={{ "--i": 1 } as CSSProperties}
           >
             {t("home.welcomeTo")}
@@ -82,7 +82,8 @@ export function Home() {
       <div className="trace-divider" />
 
       {/* ── BUILDS ───────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-6xl px-4 py-12 pb-24 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 py-12 pb-24 sm:px-6" aria-labelledby="builds-heading">
+        <h2 id="builds-heading" className="sr-only">{t("home.buildsHeading")}</h2>
         <div className="stagger animate-fade-up" style={{ "--i": 4 } as CSSProperties}>
           <CategoryToggle value={category} onChange={setCategory} />
         </div>

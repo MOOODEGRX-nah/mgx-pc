@@ -28,7 +28,7 @@ export function AdminLayout() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10">
       <div className="mb-5 flex items-center justify-between gap-3">
-        <h1 className="font-[var(--font-display)] text-2xl font-black text-[var(--color-ink)]">{t("admin.dashboard")}</h1>
+        <h1 className="font-display text-2xl font-black text-[var(--color-ink)]">{t("admin.dashboard")}</h1>
         <button
           type="button"
           onClick={() => signOut()}

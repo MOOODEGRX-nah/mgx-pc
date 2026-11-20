@@ -1,6 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { CATEGORIES, type Category } from "../types";
 
+const ARABIC_RE = /[\u0600-\u06FF]/;
+
 interface CategoryToggleProps {
   value: Category;
   onChange: (category: Category) => void;
@@ -47,7 +49,10 @@ export function CategoryToggle({ value, onChange }: CategoryToggleProps) {
                   : "bg-[var(--color-ink-faint)]",
               ].join(" ")}
             />
-            <span>{t(`categories.${category}`)}</span>
+            {/* JetBrains Mono has no Arabic glyphs: Arabic labels use the body font so letters join properly. */}
+            <span className={ARABIC_RE.test(t(`categories.${category}`)) ? "font-body tracking-normal" : undefined}>
+              {t(`categories.${category}`)}
+            </span>
             {active && <span className="animate-pop text-base leading-none">{meta.icon}</span>}
           </button>
         );

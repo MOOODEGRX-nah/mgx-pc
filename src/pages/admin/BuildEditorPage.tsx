@@ -206,7 +206,7 @@ export function BuildEditorPage() {
           <Link to="/admin/builds" onClick={leave} className="mb-1 inline-flex items-center gap-1 text-xs text-[var(--color-ink-muted)] hover:text-[var(--color-red)]">
             <BackIcon size={13} /> {t("admin.builds.backToList")}
           </Link>
-          <h2 className="font-[var(--font-display)] text-xl font-bold text-[var(--color-ink)]">
+          <h2 className="font-display text-xl font-bold text-[var(--color-ink)]">
             {id ? t("admin.editBuild") : t("admin.addBuild")}
           </h2>
         </div>

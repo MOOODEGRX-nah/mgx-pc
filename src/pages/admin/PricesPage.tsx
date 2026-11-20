@@ -79,7 +79,7 @@ export function PricesPage() {
     <div>
       <div className="mb-2 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 className="font-[var(--font-display)] text-xl font-bold text-[var(--color-ink)]">{t("admin.prices.title")}</h2>
+          <h2 className="font-display text-xl font-bold text-[var(--color-ink)]">{t("admin.prices.title")}</h2>
           <p className="text-xs text-[var(--color-ink-muted)]">{t("admin.prices.subtitle", { n: staleCount, days: staleDays })}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">

@@ -80,17 +80,17 @@ export function StoresManager() {
         {stores.map((store) => (
           <div
             key={store.id}
-            className="flex items-center gap-2 rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] px-3 py-2"
+            className="flex items-center gap-1 rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] ps-3 pe-1 py-1"
           >
             {store.logo_url ? (
               <img src={store.logo_url} alt={store.name} className="h-5 w-auto" />
             ) : null}
             <span className="text-sm text-[var(--color-ink)]">{store.name}</span>
-            <button onClick={() => startEdit(store)} className="text-[var(--color-ink-muted)] hover:text-[var(--color-red)]">
-              <Pencil size={13} />
+            <button type="button" onClick={() => startEdit(store)} aria-label={`${t("admin.edit")}: ${store.name}`} title={t("admin.edit")} className="grid h-10 w-10 place-items-center rounded-md text-[var(--color-ink-muted)] hover:text-[var(--color-red)]">
+              <Pencil size={14} />
             </button>
-            <button onClick={() => handleDelete(store.id)} className="text-[var(--color-ink-muted)] hover:text-[var(--color-red)]">
-              <Trash2 size={13} />
+            <button type="button" onClick={() => handleDelete(store.id)} aria-label={`${t("admin.delete")}: ${store.name}`} title={t("admin.delete")} className="grid h-10 w-10 place-items-center rounded-md text-[var(--color-ink-muted)] hover:text-[var(--color-red)]">
+              <Trash2 size={14} />
             </button>
           </div>
         ))}
@@ -109,26 +109,28 @@ export function StoresManager() {
             <span className="text-sm font-bold text-[var(--color-ink)]">
               {t("admin.addStore")}
             </span>
-            <button onClick={() => setEditingId(null)}>
+            <button type="button" onClick={() => setEditingId(null)} aria-label={t("common.close")} className="grid h-10 w-10 place-items-center rounded-md">
               <X size={14} className="text-[var(--color-ink-muted)]" />
             </button>
           </div>
           <div className="flex flex-wrap items-end gap-3">
             <div>
-              <label className="mb-1 block text-xs text-[var(--color-ink-muted)]">
+              <label htmlFor="store-name" className="mb-1 block text-xs text-[var(--color-ink-muted)]">
                 {t("admin.storeName")}
               </label>
               <input
+                id="store-name"
                 value={form.name}
                 onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
                 className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface-2)] px-3 py-1.5 text-sm text-[var(--color-ink)] outline-none focus:border-[var(--color-red)]"
               />
             </div>
             <div>
-              <label className="mb-1 block text-xs text-[var(--color-ink-muted)]">
+              <label htmlFor="store-logo" className="mb-1 block text-xs text-[var(--color-ink-muted)]">
                 {t("admin.storeLogo")}
               </label>
               <input
+                id="store-logo"
                 type="file"
                 accept="image/*"
                 onChange={(e) => {

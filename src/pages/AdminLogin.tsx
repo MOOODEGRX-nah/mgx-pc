@@ -29,16 +29,19 @@ export function AdminLogin() {
 
   return (
     <div className="mx-auto flex max-w-sm animate-fade-up flex-col px-4 py-20 sm:px-6">
-      <h1 className="mb-6 text-center font-[var(--font-display)] text-2xl font-black text-[var(--color-ink)]">
+      <h1 className="mb-6 text-center font-display text-2xl font-black text-[var(--color-ink)]">
         {t("admin.loginTitle")}
       </h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div>
-          <label className="mb-1 block text-xs text-[var(--color-ink-muted)]">
+          <label htmlFor="login-email" className="mb-1 block text-xs text-[var(--color-ink-muted)]">
             {t("admin.email")}
           </label>
           <input
+            id="login-email"
             type="email"
+            dir="ltr"
+            autoComplete="username"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -46,18 +49,21 @@ export function AdminLogin() {
           />
         </div>
         <div>
-          <label className="mb-1 block text-xs text-[var(--color-ink-muted)]">
+          <label htmlFor="login-password" className="mb-1 block text-xs text-[var(--color-ink-muted)]">
             {t("admin.password")}
           </label>
           <input
+            id="login-password"
             type="password"
+            dir="ltr"
+            autoComplete="current-password"
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] px-3 py-2 text-sm text-[var(--color-ink)] outline-none focus:border-[var(--color-red)]"
           />
         </div>
-        {error && <p className="text-xs text-[var(--color-red-glow)]">{error}</p>}
+        {error && <p role="alert" className="text-xs text-[var(--color-red-glow)]">{error}</p>}
         <button
           type="submit"
           disabled={submitting}

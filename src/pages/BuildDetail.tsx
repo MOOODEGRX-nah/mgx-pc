@@ -135,7 +135,7 @@ export function BuildDetail() {
           <span className={`font-mono text-xs font-bold uppercase tracking-widest rtl:tracking-normal ${catColor}`}>
             {t(`categories.${build.category}`)}
           </span>
-          <h1 className="mt-2 font-[var(--font-display)] text-3xl font-black leading-tight text-[var(--color-ink)] sm:text-4xl">
+          <h1 className="mt-2 font-display text-3xl font-black leading-tight text-[var(--color-ink)] sm:text-4xl">
             {name}
           </h1>
           {desc && (
@@ -213,7 +213,7 @@ export function BuildDetail() {
       {/* Console comparison section */}
       {build.category === "console-equiv" && build.console_target && (
         <Reveal className="mt-8 rounded-xl border border-purple-500/20 bg-purple-400/5 p-5">
-          <h2 className="mb-4 font-[var(--font-display)] text-base font-bold text-purple-300">
+          <h2 className="mb-4 font-display text-base font-bold text-purple-300">
             🕹️ {t("build.consoleSection")}
           </h2>
           <div className="flex flex-wrap gap-3">
@@ -258,7 +258,7 @@ export function BuildDetail() {
       {build.videos.length > 0 && (
         <section className="mt-10">
           <div className="trace-divider mb-8" />
-          <h2 className="mb-1 font-[var(--font-display)] text-xl font-bold text-[var(--color-ink)]">{t("videos.title")}</h2>
+          <h2 className="mb-1 font-display text-xl font-bold text-[var(--color-ink)]">{t("videos.title")}</h2>
           <p className="mb-5 text-xs text-[var(--color-ink-faint)]">{t("videos.approxNote")}</p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {build.videos.map((v, index) => (
@@ -272,7 +272,7 @@ export function BuildDetail() {
 
       {/* Specs */}
       <section>
-        <h2 className="mb-5 font-[var(--font-display)] text-xl font-bold text-[var(--color-ink)]">
+        <h2 className="mb-5 font-display text-xl font-bold text-[var(--color-ink)]">
           {t("build.specs")}
         </h2>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -288,7 +288,7 @@ export function BuildDetail() {
       {accessories.length > 0 && (
         <section className="mt-10">
           <div className="trace-divider mb-8" />
-          <h2 className="mb-5 font-[var(--font-display)] text-xl font-bold text-[var(--color-ink)]">
+          <h2 className="mb-5 font-display text-xl font-bold text-[var(--color-ink)]">
             {t("build.tools")}
           </h2>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">

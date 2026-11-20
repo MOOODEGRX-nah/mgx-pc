@@ -31,7 +31,7 @@ export function BuildSummary({ items, stores, showItems = true, children }: Buil
       <div>
         <p className="font-mono text-[11px] uppercase tracking-widest text-[var(--color-ink-faint)] rtl:tracking-normal">{t("price.total")}</p>
         {totals.pricedCount > 0 ? (
-          <p className="mt-1 font-[var(--font-display)] text-3xl font-black text-[var(--color-ink)]">
+          <p className="mt-1 font-display text-3xl font-black text-[var(--color-ink)]">
             {totals.isPartial && <span className="me-1 text-base font-bold text-[var(--color-ink-muted)]">{t("price.fromPrefix")}</span>}
             <bdi>{formatMoney(totals.total, lang)}</bdi>
           </p>

@@ -3,17 +3,21 @@
 ## 1. إعداد Supabase (قاعدة البيانات + تسجيل الدخول)
 
 1. أنشئ حساب/مشروع جديد مجاني على [supabase.com](https://supabase.com).
-2. من القائمة الجانبية افتح **SQL Editor** → New query → الصق محتوى ملف
-   `supabase/schema.sql` بالكامل → اضغط **Run**.
-   هذا ينشئ كل الجداول (`builds`, `parts`, `tools`, `stores`)، سياسات الحماية
-   (RLS)، حاويات تخزين الصور، ويزرع بيانات تجريبية (3 أجهزة + متجرين).
-   بعدها شغّل `supabase/v2_catalog.sql` (كتالوج القطع، الأسعار، صلاحيات الأدمن).
-   الترتيب والتفاصيل في `supabase/README.md`.
-3. من **Authentication → Users → Add user** أنشئ مستخدم الأونر (بريد إلكتروني
-   + كلمة مرور). هذا هو حساب الدخول لصفحة `/admin`.
+2. من **Authentication → Users → Add user** أنشئ مستخدم الأونر (بريد إلكتروني
+   + كلمة مرور، وفعّل **Auto Confirm User**). هذا هو حساب الدخول لصفحة `/admin`.
+3. من القائمة الجانبية افتح **SQL Editor** → New query وشغّل الملفات بالترتيب:
+   1. `supabase/schema.sql` — الجداول الأساسية وبيانات تجريبية.
+   2. `supabase/v2_catalog.sql` — كتالوج القطع، الأسعار، الفيديوهات، تجميعات الزوار، والحماية.
+      **قبل التشغيل** غيّر `OWNER_EMAIL_HERE` لإيميل الأونر (الخطوة 2). الملف يضيفك لجدول
+      `admins`، والكتابة على الموقع كلها مقصورة على هذا الجدول.
+   راجع النتيجة في آخر المخرجات (`admins_count` لازم يكون 1 أو أكثر). التفاصيل في `supabase/README.md`.
+   - لإضافة أدمن ثاني لاحقًا شوف قسم "Managing admins" في `supabase/README.md`.
 4. من **Project Settings → API** انسخ:
    - `Project URL`
    - `anon public` key
+
+5. **مهم:** من **Authentication → Sign In / Providers** أطفئ **Allow new users to sign up**،
+   حتى ما يقدر أحد يسوي حساب في مشروعك.
 
 ## 2. ربط المشروع بـ Supabase محليًا
 
@@ -31,11 +35,11 @@ VITE_SUPABASE_ANON_KEY=xxxxxxxxxxxxxxxx
 ## 3. التشغيل محليًا
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-افتح `http://localhost:5173`.
+افتح `http://localhost:5173/mgx-pc/`. يحتاج **Node 22** أو أحدث.
 
 ## 4. رفع المشروع على GitHub
 

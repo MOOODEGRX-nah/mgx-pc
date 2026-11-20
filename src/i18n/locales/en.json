@@ -17,7 +17,8 @@
     "noBuilds": "No builds in this category yet",
     "viewBuild": "View details",
     "ctaAdvisor": "Help me choose",
-    "ctaBuilder": "Build your PC"
+    "ctaBuilder": "Build your PC",
+    "buildsHeading": "Ready-made builds"
   },
   "categories": {
     "high-end": "High-End PC",

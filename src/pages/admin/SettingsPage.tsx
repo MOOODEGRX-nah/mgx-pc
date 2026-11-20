@@ -50,7 +50,7 @@ export function SettingsPage() {
 
   return (
     <div className={`${cardCls} max-w-xl p-5`}>
-      <h2 className="mb-5 font-[var(--font-display)] text-xl font-bold text-[var(--color-ink)]">{t("admin.settings.title")}</h2>
+      <h2 className="mb-5 font-display text-xl font-bold text-[var(--color-ink)]">{t("admin.settings.title")}</h2>
       <div className="flex flex-col gap-5">
         {FIELDS.map((f) => (
           <div key={f.key}>

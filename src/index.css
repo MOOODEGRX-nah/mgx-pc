@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Docs mention class names as examples; keep them out of the generated CSS. */
+@source not "../docs";
+@source not "../CLAUDE.md";
+@source not "../supabase";
+
 @theme {
   --font-display: "Tajawal", "Segoe UI", sans-serif;
   --font-body: "Tajawal", "Segoe UI", sans-serif;
@@ -16,8 +21,9 @@
   --color-red-glow: #ff2b1f;
 
   --color-ink: #f0f0ee;
-  --color-ink-muted: #8a8a94;
-  --color-ink-faint: #50505a;
+  /* Both pass WCAG AA (4.5:1) for small text on bg, surface and surface-2. */
+  --color-ink-muted: #a1a1ab;
+  --color-ink-faint: #80808a;
 
   /* Motion. Use with .stagger (sets a per-item delay from --i). */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);

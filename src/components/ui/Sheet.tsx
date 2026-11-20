@@ -40,7 +40,7 @@ export function Sheet({ open, onClose, title, children, footer, variant = "drawe
       {open && (
         <div className="flex h-full max-h-[inherit] flex-col">
           <div className="flex items-center justify-between gap-3 border-b border-[var(--color-line)] px-5 py-4">
-            <h2 className="font-[var(--font-display)] text-lg font-bold text-[var(--color-ink)]">{title}</h2>
+            <h2 className="font-display text-lg font-bold text-[var(--color-ink)]">{title}</h2>
             <button
               type="button"
               onClick={onClose}

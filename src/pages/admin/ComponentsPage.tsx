@@ -68,7 +68,7 @@ export function ComponentsPage() {
   return (
     <div>
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-        <h2 className="font-[var(--font-display)] text-xl font-bold text-[var(--color-ink)]">{t("admin.components.title")}</h2>
+        <h2 className="font-display text-xl font-bold text-[var(--color-ink)]">{t("admin.components.title")}</h2>
         <button type="button" onClick={() => setEditing({ component: null })} className={btnPrimary}>
           <Plus size={15} /> {t("admin.components.add")}
         </button>

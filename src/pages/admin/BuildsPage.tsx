@@ -40,7 +40,7 @@ export function BuildsPage() {
   return (
     <div>
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-        <h2 className="font-[var(--font-display)] text-xl font-bold text-[var(--color-ink)]">{t("admin.builds.title")}</h2>
+        <h2 className="font-display text-xl font-bold text-[var(--color-ink)]">{t("admin.builds.title")}</h2>
         <Link to="/admin/builds/new" className={btnPrimary}><Plus size={15} /> {t("admin.addBuild")}</Link>
       </div>
       {error && <p role="alert" className="mb-4 text-sm text-[var(--color-red-glow)]">{error}</p>}

@@ -1,6 +1,6 @@
 # MGX(PC) redesign — handoff (status, remaining tasks, required tests)
 
-Last updated: 2026-11-09. Written when work moved from a cloud session to the owner's computer.
+Last updated: 2026-11-20. Phases 0–7 and 9 are done; Phase 8 (automatic prices) waits for the owner's API access.
 The full specification is [`docs/redesign-plan.md`](redesign-plan.md) ("the plan"); section numbers below refer to it.
 
 ---
@@ -42,6 +42,7 @@ npm run build
 | `eaf48c6` | Admin (old UI): English part names truncated from the start in Arabic; LTR/RTL direction on name/description/link inputs |
 | `1aec665` | Animations and polish on public pages (CSS only; `Reveal`, `PageTransition` components; scroll-to-top on navigation; BuildCard hover colour bug; console-equiv colour; Arabic letter-spacing) |
 | `c21b82c` | Handoff docs, `CLAUDE.md`, `supabase/tests/` (automated DB tests) |
+| Phase 9 | Lazy-loaded routes, accessibility pass (labels, contrast, heading order), Tailwind v4 font utilities fixed, README/SETUP rewritten |
 | Phase 7 | `/advisor` (`AdvisorPage`, rules in `src/lib/advisor.ts` with 11 tests, candidates from `fetchAdvisorCandidates`), home CTAs to the advisor and builder |
 | Phase 6 | `/builder` (`BuilderPage`: draft in localStorage, `?from=` clone, advisor target banner, save dialog with honeypot, PDF, copy list, reset), `/admin/visitor-builds` inbox (status filter, live vs snapshot total, publish as build with suggested category, review/archive/delete, tab badge), responsive navbar |
 | Phase 5 | `VideosEditor` in the build editor (saved immediately, reorder), `VideoFacade` on the build page (thumbnail, iframe only after click, youtube-nocookie) |
@@ -97,6 +98,18 @@ Since Phase 3 no frontend code reads the legacy `parts`/`tools` tables (they sta
 | D6 | Dropping legacy `parts`/`tools` (Phase 9, `v3_drop_legacy.sql`) | Keep the tables |
 
 ---
+
+### 3.1 Owner data entry (the site only becomes smart once the catalog has data)
+
+1. **Prices:** add store offers with prices in `/admin/components` (or `/admin/prices`). Until then totals show
+   "no prices yet" and the advisor cannot compare builds with budgets.
+2. **Performance tiers:** set the tier (1–5) of every CPU and GPU in `/admin/components`. Builds without tiers are left
+   out of the advisor (it tells the visitor how many).
+3. **Specs:** fill sockets, RAM type, form factors, lengths, TDP, wattage… to enable the compatibility warnings.
+4. **Accessory categories** (keyboard, mouse, headset, monitor, desk, chair) with prices, for the advisor's setup suggestions.
+5. **Setup allowance** in `/admin/settings` (1500 SAR placeholder).
+6. **Delete the test admin `claude-test@mgxpc.com`** (its password was written in a chat).
+7. **Merge** [MOOODEGRX-nah/mgx-pc#1](https://github.com/MOOODEGRX-nah/mgx-pc/pull/1) to publish everything.
 
 ## 4. Remaining tasks
 
@@ -164,13 +177,17 @@ Tabs for Prices and Visitor builds are added in Phases 4 and 6.
 - [ ] Verify current Amazon Creators API / AliExpress API eligibility, Saudi marketplace support, limits and terms **before** writing code.
 - [ ] Scheduled job (Supabase Edge Function + `pg_cron`, or GitHub Actions cron), store adapters, `price_sync_log` table, last-sync status in `/admin/prices`. Secrets only in function/Actions secrets. No scraping without written permission.
 
-### Phase 9 — Hardening, QA, cleanup
+### Phase 9 — Hardening, QA, cleanup — DONE (except the owner-approved legacy drop)
 
-- [ ] Full AR/EN pass at 360 px and desktop, every page including admin (RTL).
-- [ ] Lighthouse sanity on Home and Build detail (iframes must not load before click).
-- [ ] Bundle size: the JS bundle is > 500 kB; lazy-load admin routes (`React.lazy`) to split it.
-- [ ] Update `README.md` and `SETUP.md` (features, SQL run order, env vars, admins row, sign-ups off).
-- [ ] Only with owner approval: `supabase/v3_drop_legacy.sql` dropping `parts` and `tools`.
+- [x] Full AR/EN pass at 360 px and 1366 px, normal and reduced motion, every page including admin (128 page checks:
+      no horizontal overflow, no hidden content, no console errors, every control has an accessible name).
+- [x] Lighthouse: accessibility 100 on Home, Build detail, Advisor, Builder; best practices 100; performance 81–96
+      (Builder is lowest because it loads the whole catalog with offers). Video iframes never load before a click.
+- [x] Bundle: admin, builder and advisor pages are lazy-loaded (`React.lazy` in `src/App.tsx`).
+- [x] `README.md` and `SETUP.md` updated (features, SQL run order, env vars, admins row, sign-ups off).
+- [x] Fixes found in QA: `font-[var(--font-*)]` never set the font family in Tailwind v4 (now `font-display` /
+      `font-body`); muted/faint text colours raised to WCAG AA; login and stores controls labelled.
+- [ ] Only with owner approval: `supabase/v3_drop_legacy.sql` dropping `parts` and `tools` (no frontend code uses them).
 
 ---
 
