@@ -1,11 +1,17 @@
 import { useEffect, useState, type CSSProperties } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, ArrowRight, Cpu } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, ClipboardList, Cpu, FileDown } from "lucide-react";
 import { fetchStores } from "../lib/api";
 import { fetchBuildFull } from "../lib/buildsApi";
 import { groupItemsBySlot } from "../lib/buildItems";
 import { ItemRow } from "../components/ItemRow";
+import { BuildSummary } from "../components/BuildSummary";
+import { BuildPrintSheet } from "../components/BuildPrintSheet";
+import { copyText } from "../lib/clipboard";
+import { formatMoney, normalizeLang } from "../lib/format";
+import { pickLang } from "../lib/i18nData";
+import { shoppingListText } from "../lib/shoppingList";
 import { Reveal } from "../components/Reveal";
 import type { BuildFull, Store } from "../types";
 
@@ -44,6 +50,7 @@ export function BuildDetail() {
   const [build, setBuild] = useState<BuildFull | null | undefined>(undefined);
   const [stores, setStores]   = useState<Store[]>([]);
   const [imgErr, setImgErr]   = useState<string | null>(null);
+  const [listCopied, setListCopied] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -86,11 +93,31 @@ export function BuildDetail() {
   const accessories = groups.find((g) => g.slot === "accessory")?.items ?? [];
   const partsCount = coreGroups.reduce((n, g) => n + g.items.reduce((m, i) => m + i.quantity, 0), 0);
   const accessoriesCount = accessories.reduce((n, i) => n + i.quantity, 0);
+  const pageUrl = window.location.href;
+  const lang = normalizeLang(i18n.language);
+
+  async function copyShoppingList() {
+    if (!build) return;
+    const text = shoppingListText(pickLang(build, "name", lang), build.items, lang, {
+      slot: (slot) => t(`slots.${slot}`),
+      noLink: t("build.noLink"),
+      total: (amount) => `${t("price.total")}: ${amount}`,
+      partial: (n) => t("price.partial", { n }),
+      accessories: (amount) => `${t("price.accessories")}: ${amount}`,
+      pricesMayChange: t("print.pricesMayChange"),
+      money: (v) => formatMoney(v, lang),
+    }, pageUrl);
+    if (await copyText(text)) {
+      setListCopied(true);
+      setTimeout(() => setListCopied(false), 2000);
+    }
+  }
   const hasImg = !!build.image_url && imgErr !== build.image_url;
   const catColor = CATEGORY_COLOR[build.category] ?? "text-[var(--color-red)]";
 
   return (
-    <div className="mx-auto max-w-5xl px-4 pb-24 sm:px-6">
+    <>
+    <div className="mx-auto max-w-5xl px-4 pb-24 sm:px-6 print:hidden">
       {/* Back */}
       <Link to="/" className="group mt-6 inline-flex items-center gap-1.5 text-sm text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-red)]">
         <BackIcon size={14} className="transition-transform duration-300 ltr:group-hover:-translate-x-1 rtl:group-hover:translate-x-1" />
@@ -152,6 +179,29 @@ export function BuildDetail() {
           <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[var(--color-bg)]/60 to-transparent pointer-events-none" />
         </div>
       </div>
+
+      {/* Price + actions */}
+      <Reveal className="mt-8 grid grid-cols-1 gap-5 rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5 md:grid-cols-[minmax(0,1fr)_auto]">
+        <BuildSummary items={build.items} stores={stores} showItems={false} />
+        <div className="flex flex-col gap-2 md:min-w-[200px]">
+          <button
+            type="button"
+            onClick={() => window.print()}
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[var(--color-red)] px-4 text-sm font-bold text-white transition-opacity hover:opacity-90 active:scale-[0.98]"
+          >
+            <FileDown size={16} /> {t("build.exportPdf")}
+          </button>
+          <p className="text-center text-[11px] text-[var(--color-ink-faint)]">{t("build.pdfHint")}</p>
+          <button
+            type="button"
+            onClick={copyShoppingList}
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-[var(--color-line)] px-4 text-sm text-[var(--color-ink-muted)] transition-colors hover:border-[var(--color-red)] hover:text-[var(--color-ink)] active:scale-[0.98]"
+          >
+            {listCopied ? <Check size={16} className="animate-pop text-[var(--color-red)]" /> : <ClipboardList size={16} />}
+            {listCopied ? t("build.listCopied") : t("build.copyList")}
+          </button>
+        </div>
+      </Reveal>
 
       {/* Console comparison section */}
       {build.category === "console-equiv" && build.console_target && (
@@ -230,5 +280,7 @@ export function BuildDetail() {
         </section>
       )}
     </div>
+    <BuildPrintSheet build={build} stores={storeMap} pageUrl={pageUrl} />
+    </>
   );
 }

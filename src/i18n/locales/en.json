@@ -31,7 +31,11 @@
     "consoleSection": "Console Comparison",
     "consoleTarget": "Target Console",
     "priceVsConsole": "Price vs Console",
-    "perfVsConsole": "Performance vs Console"
+    "perfVsConsole": "Performance vs Console",
+    "exportPdf": "Export PDF",
+    "pdfHint": "In the print window choose \"Save as PDF\".",
+    "copyList": "Copy shopping list",
+    "listCopied": "List copied"
   },
   "consoleTarget": {
     "ps5": "PlayStation 5",
@@ -241,6 +245,17 @@
       "unsaved": "Unsaved changes",
       "leaveConfirm": "You have unsaved changes. Leave anyway?",
       "viewPublic": "View on the site"
+    },
+    "prices": {
+      "title": "Price check",
+      "subtitle": "Offers needing a check: {{n}} (unconfirmed for over {{days}} days or without a price).",
+      "howTo": "Open the store page, type the current price and stock, then save. If the price did not change, use \"Price confirmed today\".",
+      "onlyStale": "Only offers needing a check",
+      "filterStore": "Filter by store",
+      "allStores": "All stores",
+      "openStore": "Open store page",
+      "allFresh": "All prices are up to date.",
+      "empty": "No offers yet. Add them in the component catalog."
     }
   },
   "compat": {
@@ -354,6 +369,14 @@
     "noResults": "No matching parts",
     "hidden": "Hidden from visitors",
     "empty": "Pick parts to see the total"
+  },
+  "print": {
+    "component": "Component",
+    "price": "Best price",
+    "store": "Store",
+    "link": "Link",
+    "generated": "Generated {{date}}",
+    "pricesMayChange": "Prices may have changed since this list was made. Check each store before buying."
   },
   "common": {
     "loading": "Loading...",

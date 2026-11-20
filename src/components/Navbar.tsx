@@ -22,7 +22,7 @@ export function Navbar() {
   return (
     <header
       className={[
-        "sticky top-0 z-30 border-b backdrop-blur-md transition-[background-color,border-color,box-shadow] duration-300",
+        "sticky top-0 z-30 border-b backdrop-blur-md transition-[background-color,border-color,box-shadow] duration-300 print:hidden",
         scrolled
           ? "border-[var(--color-line)] bg-[var(--color-bg)]/85 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.8)]"
           : "border-transparent bg-[var(--color-bg)]/60",

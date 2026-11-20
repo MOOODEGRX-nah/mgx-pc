@@ -7,6 +7,10 @@ import type {
   Component, ComponentOffer, ComponentType, ComponentWithOffers,
 } from "../types";
 
+export interface QueuedOffer extends ComponentOffer {
+  component: Pick<Component, "id" | "name" | "name_ar" | "type" | "image_url" | "is_active">;
+}
+
 // ---------- Components ----------
 
 export interface ComponentQuery {
@@ -215,4 +219,29 @@ export async function touchOfferPrice(id: string): Promise<ComponentOffer> {
     .single();
   if (error) throw toAppError(error);
   return toOffer(data);
+}
+
+/**
+ * Price-check queue: every offer with its component, never-confirmed prices first,
+ * then the oldest confirmation. Optional store filter ("none" = offers without a store).
+ */
+export async function fetchOffersQueue(storeId?: string | "none"): Promise<QueuedOffer[]> {
+  let q = supabase
+    .from("component_offers")
+    .select("*, components(id, name, name_ar, type, image_url, is_active)")
+    .order("price_updated_at", { ascending: true, nullsFirst: true })
+    .order("created_at", { ascending: true });
+  if (storeId === "none") q = q.is("store_id", null);
+  else if (storeId) q = q.eq("store_id", storeId);
+  const { data, error } = await q;
+  if (error) throw toAppError(error);
+  return ((data ?? []) as Record<string, unknown>[])
+    .filter((row) => row.components)
+    .map((row) => {
+      const c = toComponent(row.components as Record<string, unknown>);
+      return {
+        ...toOffer(row),
+        component: { id: c.id, name: c.name, name_ar: c.name_ar, type: c.type, image_url: c.image_url, is_active: c.is_active },
+      };
+    });
 }

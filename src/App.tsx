@@ -8,6 +8,7 @@ import { BuildsPage } from "./pages/admin/BuildsPage";
 import { BuildEditorPage } from "./pages/admin/BuildEditorPage";
 import { ComponentsPage } from "./pages/admin/ComponentsPage";
 import { SettingsPage } from "./pages/admin/SettingsPage";
+import { PricesPage } from "./pages/admin/PricesPage";
 import { StoresManager } from "./components/admin/StoresManager";
 import { NotFound } from "./pages/NotFound";
 import { ProtectedRoute } from "./components/ProtectedRoute";
@@ -38,6 +39,7 @@ function App() {
                 <Route path="builds/new" element={<BuildEditorPage />} />
                 <Route path="builds/:id" element={<BuildEditorPage key="edit" />} />
                 <Route path="components" element={<ComponentsPage />} />
+                <Route path="prices" element={<PricesPage />} />
                 <Route path="stores" element={<StoresManager />} />
                 <Route path="settings" element={<SettingsPage />} />
                 <Route path="*" element={<Navigate to="builds" replace />} />

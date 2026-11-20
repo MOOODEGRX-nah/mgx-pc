@@ -280,8 +280,30 @@ img[src=""] {
 }
 
 @media print {
+  @page {
+    margin: 14mm;
+  }
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    color-scheme: light;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+  }
   [data-reveal] {
     opacity: 1 !important;
-    animation: none !important;
+  }
+  .print-sheet {
+    color: #000;
+    font-family: var(--font-body);
+  }
+  .print-row {
+    break-inside: avoid;
   }
 }

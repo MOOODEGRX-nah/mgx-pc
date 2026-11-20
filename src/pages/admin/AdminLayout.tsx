@@ -6,6 +6,7 @@ import { useAuth } from "../../context/AuthContext";
 const TABS = [
   { to: "builds", key: "builds" },
   { to: "components", key: "components" },
+  { to: "prices", key: "prices" },
   { to: "stores", key: "stores" },
   { to: "settings", key: "settings" },
 ] as const;

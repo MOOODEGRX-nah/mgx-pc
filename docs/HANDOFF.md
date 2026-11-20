@@ -42,6 +42,7 @@ npm run build
 | `eaf48c6` | Admin (old UI): English part names truncated from the start in Arabic; LTR/RTL direction on name/description/link inputs |
 | `1aec665` | Animations and polish on public pages (CSS only; `Reveal`, `PageTransition` components; scroll-to-top on navigation; BuildCard hover colour bug; console-equiv colour; Arabic letter-spacing) |
 | `c21b82c` | Handoff docs, `CLAUDE.md`, `supabase/tests/` (automated DB tests) |
+| Phase 4 | Build page price card (`BuildSummary`: total, partial notice, accessories, last update, compatibility, one-store totals), PDF via `window.print()` + `BuildPrintSheet` (light print CSS, full URLs), copy shopping list (`shoppingListText`, clipboard fallback), `/admin/prices` queue (`fetchOffersQueue`) |
 | Phase 3 | Build editor (`/admin/builds/new`, `/admin/builds/:id`) with catalog slot pickers (`BuildSlots`, `ComponentPicker`), live `BuildSummary`, composite editor on catalog parts; builds list; Home/BuildCard/BuildDetail on `fetchBuildsWithSummary`/`fetchBuildFull` (`ItemRow` lists every store offer); legacy parts/tools code and types removed; `.collapse` renamed `.accordion` (Tailwind's `collapse` hid accordion content) |
 | Phase 2 | Admin shell (`AdminLayout`, nested routes), `isAdmin` check + no-access screen, component catalog with type tabs/search/drawer/dynamic specs/offers/duplicate, settings page, i18n of old admin strings, `npm run lint:i18n` also checks that every literal `t("key")` exists |
 
@@ -130,12 +131,12 @@ Tabs for Prices and Visitor builds are added in Phases 4 and 6.
 - [x] `BuildDetail`: `fetchBuildFull` (one request; the current 3 sequential requests take ~2.5 s), group items by slot (several RAM/storage rows), successor of `SpecRow` with best price + store and an expandable list of all offers; keep copy name / copy link / open store; console block unchanged.
 - [x] Remove every frontend read of `parts`/`tools` (`grep -rn "\"parts\"\|\"tools\"" src` must be empty except legacy types); delete `PartsEditor`/`ToolsEditor` and the legacy API functions once unused. Tables stay in the DB.
 
-### Phase 4 — Prices UI, PDF, copy list, stale queue
+### Phase 4 — Prices UI, PDF, copy list, stale queue — DONE
 
-- [ ] Prices everywhere in plan 6.5 (per item, totals, accessories subtotal, last update date, per-store comparison).
-- [ ] `/admin/prices`: offers ordered by oldest/missing `price_updated_at`, store filter, open store page (`rel="noopener noreferrer"`), inline price + stock + save.
-- [ ] `BuildPrintSheet` (`hidden print:block`) + `ExportPdfButton` (`window.print()` + hint "Choose Save as PDF"); `@media print` light theme, hide navbar/buttons, no row splits, **full URLs printed as text**; follows UI language/direction. No PDF library.
-- [ ] "Copy shopping list" (plain text, `Name — URL`, section headers, current language).
+- [x] Prices everywhere in plan 6.5 (per item, totals, accessories subtotal, last update date, per-store comparison).
+- [x] `/admin/prices`: offers ordered by oldest/missing `price_updated_at`, store filter, open store page (`rel="noopener noreferrer"`), inline price + stock + save.
+- [x] `BuildPrintSheet` (`hidden print:block`) + `ExportPdfButton` (`window.print()` + hint "Choose Save as PDF"); `@media print` light theme, hide navbar/buttons, no row splits, **full URLs printed as text**; follows UI language/direction. No PDF library.
+- [x] "Copy shopping list" (plain text, `Name — URL`, section headers, current language).
 
 ### Phase 5 — Performance videos
 
