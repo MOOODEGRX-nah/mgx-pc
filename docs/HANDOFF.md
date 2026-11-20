@@ -42,6 +42,7 @@ npm run build
 | `eaf48c6` | Admin (old UI): English part names truncated from the start in Arabic; LTR/RTL direction on name/description/link inputs |
 | `1aec665` | Animations and polish on public pages (CSS only; `Reveal`, `PageTransition` components; scroll-to-top on navigation; BuildCard hover colour bug; console-equiv colour; Arabic letter-spacing) |
 | `c21b82c` | Handoff docs, `CLAUDE.md`, `supabase/tests/` (automated DB tests) |
+| Phase 5 | `VideosEditor` in the build editor (saved immediately, reorder), `VideoFacade` on the build page (thumbnail, iframe only after click, youtube-nocookie) |
 | Phase 4 | Build page price card (`BuildSummary`: total, partial notice, accessories, last update, compatibility, one-store totals), PDF via `window.print()` + `BuildPrintSheet` (light print CSS, full URLs), copy shopping list (`shoppingListText`, clipboard fallback), `/admin/prices` queue (`fetchOffersQueue`) |
 | Phase 3 | Build editor (`/admin/builds/new`, `/admin/builds/:id`) with catalog slot pickers (`BuildSlots`, `ComponentPicker`), live `BuildSummary`, composite editor on catalog parts; builds list; Home/BuildCard/BuildDetail on `fetchBuildsWithSummary`/`fetchBuildFull` (`ItemRow` lists every store offer); legacy parts/tools code and types removed; `.collapse` renamed `.accordion` (Tailwind's `collapse` hid accordion content) |
 | Phase 2 | Admin shell (`AdminLayout`, nested routes), `isAdmin` check + no-access screen, component catalog with type tabs/search/drawer/dynamic specs/offers/duplicate, settings page, i18n of old admin strings, `npm run lint:i18n` also checks that every literal `t("key")` exists |
@@ -138,10 +139,10 @@ Tabs for Prices and Visitor builds are added in Phases 4 and 6.
 - [x] `BuildPrintSheet` (`hidden print:block`) + `ExportPdfButton` (`window.print()` + hint "Choose Save as PDF"); `@media print` light theme, hide navbar/buttons, no row splits, **full URLs printed as text**; follows UI language/direction. No PDF library.
 - [x] "Copy shopping list" (plain text, `Name — URL`, section headers, current language).
 
-### Phase 5 — Performance videos
+### Phase 5 — Performance videos — DONE
 
-- [ ] Admin: add/remove/reorder videos (paste URL → `parseYouTube`; titles ar/en, game, resolution, settings, approx FPS, start), small preview; invalid links rejected with a translated message.
-- [ ] Public: lazy facade (thumbnail via `youtubeThumbnailUrl`, iframe only after click via `youtubeEmbedUrl`, `youtube-nocookie.com`, no autoplay), caption, "≈ N FPS", "Approximate performance — results vary" note.
+- [x] Admin: add/remove/reorder videos (paste URL → `parseYouTube`; titles ar/en, game, resolution, settings, approx FPS, start), small preview; invalid links rejected with a translated message.
+- [x] Public: lazy facade (thumbnail via `youtubeThumbnailUrl`, iframe only after click via `youtubeEmbedUrl`, `youtube-nocookie.com`, no autoplay), caption, "≈ N FPS", "Approximate performance — results vary" note.
 
 ### Phase 6 — Public builder + visitor submissions inbox
 

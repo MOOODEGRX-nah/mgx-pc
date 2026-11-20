@@ -8,6 +8,7 @@ import { groupItemsBySlot } from "../lib/buildItems";
 import { ItemRow } from "../components/ItemRow";
 import { BuildSummary } from "../components/BuildSummary";
 import { BuildPrintSheet } from "../components/BuildPrintSheet";
+import { VideoFacade } from "../components/VideoFacade";
 import { copyText } from "../lib/clipboard";
 import { formatMoney, normalizeLang } from "../lib/format";
 import { pickLang } from "../lib/i18nData";
@@ -245,6 +246,20 @@ export function BuildDetail() {
             )}
           </div>
         </Reveal>
+      )}
+
+      {/* Performance videos */}
+      {build.videos.length > 0 && (
+        <section className="mt-10">
+          <div className="trace-divider mb-8" />
+          <h2 className="mb-1 font-[var(--font-display)] text-xl font-bold text-[var(--color-ink)]">{t("videos.title")}</h2>
+          <p className="mb-5 text-xs text-[var(--color-ink-faint)]">{t("videos.approxNote")}</p>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {build.videos.map((v, index) => (
+              <Reveal key={v.id} delay={index * 80}><VideoFacade video={v} /></Reveal>
+            ))}
+          </div>
+        </section>
       )}
 
       <div className="trace-divider my-10" />

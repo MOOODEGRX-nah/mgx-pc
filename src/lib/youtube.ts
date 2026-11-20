@@ -67,11 +67,14 @@ export function parseYouTube(input: string): YouTubeRef | null {
   return start && start > 0 ? { id, start } : { id };
 }
 
-/** Privacy-enhanced embed URL. Throws on an invalid id (defensive; ids come from the DB check constraint). */
-export function youtubeEmbedUrl(id: string, start?: number | null): string {
+/**
+ * Privacy-enhanced embed URL. Throws on an invalid id (defensive; ids come from the DB check constraint).
+ * `autoplay` is only for the click-to-load facade: the visitor already pressed play.
+ */
+export function youtubeEmbedUrl(id: string, start?: number | null, opts: { autoplay?: boolean } = {}): string {
   if (!isYouTubeId(id)) throw new Error("invalid YouTube id");
   const s = start && start > 0 ? Math.floor(start) : 0;
-  return `https://www.youtube-nocookie.com/embed/${id}?start=${s}&rel=0`;
+  return `https://www.youtube-nocookie.com/embed/${id}?start=${s}&rel=0${opts.autoplay ? "&autoplay=1" : ""}`;
 }
 
 /** Static thumbnail for the click-to-load facade. */

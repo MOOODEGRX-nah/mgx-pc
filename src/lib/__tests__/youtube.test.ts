@@ -41,6 +41,7 @@ describe("embed helpers", () => {
   it("builds privacy-enhanced embed URLs", () => {
     expect(youtubeEmbedUrl(ID)).toBe(`https://www.youtube-nocookie.com/embed/${ID}?start=0&rel=0`);
     expect(youtubeEmbedUrl(ID, 90)).toBe(`https://www.youtube-nocookie.com/embed/${ID}?start=90&rel=0`);
+    expect(youtubeEmbedUrl(ID, 0, { autoplay: true })).toBe(`https://www.youtube-nocookie.com/embed/${ID}?start=0&rel=0&autoplay=1`);
     expect(youtubeThumbnailUrl(ID)).toBe(`https://i.ytimg.com/vi/${ID}/hqdefault.jpg`);
   });
   it("refuses invalid ids", () => {

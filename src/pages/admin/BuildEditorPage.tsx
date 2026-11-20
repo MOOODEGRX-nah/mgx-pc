@@ -6,13 +6,14 @@ import { BuildSlots } from "../../components/BuildSlots";
 import { BuildSummary } from "../../components/BuildSummary";
 import { CompositeEditor, type CompositePart } from "../../components/CompositeEditor";
 import { btnGhost, btnPrimary, cardCls, hintCls, inputCls, labelCls } from "../../components/admin/ui";
+import { VideosEditor } from "../../components/admin/VideosEditor";
 import { fetchComponents } from "../../lib/catalogApi";
 import { fetchBuildFull, saveBuildItems } from "../../lib/buildsApi";
 import { createBuild, fetchStores, updateBuild, uploadBlob, uploadImage } from "../../lib/api";
 import { toAppError } from "../../lib/errors";
 import {
   CATEGORIES,
-  type Build, type Category, type ComponentWithOffers, type ConsoleTarget, type ItemWithComponent,
+  type Build, type BuildVideo, type Category, type ComponentWithOffers, type ConsoleTarget, type ItemWithComponent,
   type PerfVsConsole, type PriceVsConsole, type Store,
 } from "../../types";
 
@@ -65,6 +66,7 @@ export function BuildEditorPage() {
   const [stores, setStores] = useState<Store[]>([]);
   const [basics, setBasics] = useState<Basics>(toBasics());
   const [items, setItems] = useState<ItemWithComponent[]>([]);
+  const [videos, setVideos] = useState<BuildVideo[]>([]);
   const [saved, setSaved] = useState(() => snapshotOf(toBasics(), []));
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -87,6 +89,7 @@ export function BuildEditorPage() {
       const its: ItemWithComponent[] = build?.items ?? [];
       setBasics(b);
       setItems(its);
+      setVideos(build?.videos ?? []);
       setSaved(snapshotOf(b, its));
       setStatus("ready");
     }).catch((err) => {
@@ -271,6 +274,13 @@ export function BuildEditorPage() {
               </p>
             )}
             <BuildSlots catalog={catalog} value={items} onChange={(next) => { setItems(next); setMessage(null); }} />
+          </section>
+
+          {/* Videos */}
+          <section className={`${cardCls} p-4`}>
+            <h3 className="mb-1 text-sm font-bold text-[var(--color-ink)]">{t("videos.title")}</h3>
+            <p className={`${hintCls} mb-3`}>{id ? t("videos.savedImmediately") : t("videos.saveBuildFirst")}</p>
+            {id && <VideosEditor buildId={id} videos={videos} onChange={setVideos} />}
           </section>
 
           {/* Image */}
